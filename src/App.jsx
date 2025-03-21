@@ -8,6 +8,7 @@ import Charts from "./components/Charts";
 
 function App() {
   const [showHiit, setShowHiit] = useState(true);
+  const [showCharts, setShowCharts] = useState(false); // Estado para Charts
   const [exerciseTime, setExerciseTime] = useState(
     () => parseInt(localStorage.getItem("totalExercise")) || 0
   );
@@ -27,8 +28,9 @@ function App() {
         <h1>Argestan</h1>
       </header>
       <main>
-        <div className="timer-switch">
+        <div className="controls">
           <button
+            className="timer-switch"
             onClick={() => setShowHiit(!showHiit)}
             aria-label={
               showHiit
@@ -38,14 +40,23 @@ function App() {
           >
             {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
           </button>
+          <button
+            className="charts-toggle"
+            onClick={() => setShowCharts(!showCharts)}
+            aria-label={showCharts ? "Ocultar totales" : "Ver totales"}
+          >
+            {showCharts ? "Ocultar totales" : "Ver totales"}
+          </button>
         </div>
         {showHiit ? (
           <HiitTimer onTimeUpdate={setExerciseTime} />
         ) : (
           <Pomodoro onTimeUpdate={setStudyTime} />
         )}
+        {showCharts && (
+          <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
+        )}
         <Quotes />
-        <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
       </main>
     </div>
   );
