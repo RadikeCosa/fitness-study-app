@@ -1,25 +1,48 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-function Pomodoro() {
-  const [studyTime, setStudyTime] = useState(25 * 60); // 25 minutos en segundos
-  const [shortBreak, setShortBreak] = useState(5 * 60); // 5 minutos
-  const [longBreak, setLongBreak] = useState(15 * 60); // 15 minutos
-  const [cycles, setCycles] = useState(4); // Ciclos hasta descanso largo
+function Pomodoro({ onTimeUpdate }) {
+  const [studyTime, setStudyTime] = useState(25 * 60);
+  const [shortBreak, setShortBreak] = useState(5 * 60);
+  const [longBreak, setLongBreak] = useState(15 * 60);
+  const [cycles, setCycles] = useState(4);
   const [isRunning, setIsRunning] = useState(false);
   const [currentTime, setCurrentTime] = useState(studyTime);
   const [isStudy, setIsStudy] = useState(true);
   const [currentCycle, setCurrentCycle] = useState(1);
-  const [totalStudy, setTotalStudy] = useState(0); // Tiempo total estudiado
+  const [totalStudy, setTotalStudy] = useState(() => {
+    return parseInt(localStorage.getItem("totalStudy")) || 0;
+  });
+
+  const updateDailyStudy = useCallback(
+    (newTotal) => {
+      const today = new Date().toISOString().split("T")[0];
+      const dailyStudy = JSON.parse(localStorage.getItem("dailyStudy")) || {};
+      dailyStudy[today] = (dailyStudy[today] || 0) + (newTotal - totalStudy);
+      localStorage.setItem("dailyStudy", JSON.stringify(dailyStudy));
+    },
+    [totalStudy]
+  );
 
   useEffect(() => {
     let interval;
     if (isRunning && currentTime > 0) {
       interval = setInterval(() => {
-        setCurrentTime((prev) => prev - 1);
+        setCurrentTime((prev) => {
+          const newTime = prev - 1;
+          if (isStudy) {
+            setTotalStudy((prevTotal) => {
+              const newTotal = prevTotal + 1; // Sumar 1 segundo
+              localStorage.setItem("totalStudy", newTotal);
+              updateDailyStudy(newTotal);
+              onTimeUpdate(newTotal);
+              return newTotal;
+            });
+          }
+          return newTime;
+        });
       }, 1000);
     } else if (isRunning && currentTime === 0) {
       if (isStudy) {
-        setTotalStudy((prev) => prev + studyTime);
         if (currentCycle < cycles) {
           setIsStudy(false);
           setCurrentTime(shortBreak);
@@ -27,7 +50,7 @@ function Pomodoro() {
         } else {
           setIsStudy(false);
           setCurrentTime(longBreak);
-          setCurrentCycle(1); // Reinicia ciclos tras descanso largo
+          setCurrentCycle(1);
         }
       } else {
         setIsStudy(true);
@@ -44,12 +67,14 @@ function Pomodoro() {
     studyTime,
     shortBreak,
     longBreak,
+    onTimeUpdate,
+    updateDailyStudy,
   ]);
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}m ${secs}s`;
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
   };
 
   return (
@@ -114,6 +139,9 @@ function Pomodoro() {
           setCurrentTime(studyTime);
           setCurrentCycle(1);
           setTotalStudy(0);
+          localStorage.setItem("totalStudy", "0");
+          updateDailyStudy(0);
+          onTimeUpdate(0);
         }}
       >
         Reiniciar

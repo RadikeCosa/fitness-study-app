@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-function HiitTimer() {
+function HiitTimer({ onTimeUpdate }) {
   const [rounds, setRounds] = useState(5);
   const [workTime, setWorkTime] = useState(30);
   const [restTime, setRestTime] = useState(15);
@@ -8,26 +8,50 @@ function HiitTimer() {
   const [currentTime, setCurrentTime] = useState(workTime);
   const [isWork, setIsWork] = useState(true);
   const [currentRound, setCurrentRound] = useState(1);
-  const [totalExercise, setTotalExercise] = useState(0); // Tiempo total ejercitado
+  const [totalExercise, setTotalExercise] = useState(() => {
+    return parseInt(localStorage.getItem("totalExercise")) || 0;
+  });
+
+  const updateDailyExercise = useCallback(
+    (newTotal) => {
+      const today = new Date().toISOString().split("T")[0];
+      const dailyExercise =
+        JSON.parse(localStorage.getItem("dailyExercise")) || {};
+      dailyExercise[today] =
+        (dailyExercise[today] || 0) + (newTotal - totalExercise);
+      localStorage.setItem("dailyExercise", JSON.stringify(dailyExercise));
+    },
+    [totalExercise]
+  );
 
   useEffect(() => {
     let interval;
     if (isRunning && currentTime > 0) {
       interval = setInterval(() => {
-        setCurrentTime((prev) => prev - 1);
+        setCurrentTime((prev) => {
+          const newTime = prev - 1;
+          if (isWork) {
+            setTotalExercise((prevTotal) => {
+              const newTotal = prevTotal + 1; // Sumar 1 segundo
+              localStorage.setItem("totalExercise", newTotal);
+              updateDailyExercise(newTotal);
+              onTimeUpdate(newTotal);
+              return newTotal;
+            });
+          }
+          return newTime;
+        });
       }, 1000);
     } else if (isRunning && currentTime === 0) {
       if (isWork && currentRound < rounds) {
         setIsWork(false);
         setCurrentTime(restTime);
-        setTotalExercise((prev) => prev + workTime); // Sumamos el tiempo de trabajo
       } else if (!isWork && currentRound < rounds) {
         setIsWork(true);
         setCurrentTime(workTime);
         setCurrentRound((prev) => prev + 1);
       } else {
         setIsRunning(false);
-        setTotalExercise((prev) => prev + (isWork ? workTime : 0)); // Sumamos el último trabajo si corresponde
       }
     }
     return () => clearInterval(interval);
@@ -39,13 +63,14 @@ function HiitTimer() {
     rounds,
     workTime,
     restTime,
+    onTimeUpdate,
+    updateDailyExercise,
   ]);
 
-  // Función para formatear el tiempo total en minutos y segundos
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}m ${secs}s`;
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
   };
 
   return (
@@ -85,8 +110,7 @@ function HiitTimer() {
         Ronda {currentRound}/{rounds} - {isWork ? "Trabajo" : "Descanso"}:{" "}
         {currentTime}s
       </p>
-      <p>Tiempo total ejercitado: {formatTime(totalExercise)}</p>{" "}
-      {/* Mostramos el tiempo total */}
+      <p>Tiempo total ejercitado: {formatTime(totalExercise)}</p>
       <button onClick={() => setIsRunning(!isRunning)}>
         {isRunning ? "Pausar" : "Iniciar"}
       </button>
@@ -95,7 +119,10 @@ function HiitTimer() {
           setIsRunning(false);
           setCurrentTime(workTime);
           setCurrentRound(1);
-          setTotalExercise(0); // Reiniciamos también el total
+          setTotalExercise(0);
+          localStorage.setItem("totalExercise", "0");
+          updateDailyExercise(0);
+          onTimeUpdate(0);
         }}
       >
         Reiniciar

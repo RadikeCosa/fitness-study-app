@@ -16,7 +16,8 @@ h1 {
 }
 
 .timers,
-.quotes {
+.quotes,
+.charts {
   margin-bottom: 30px;
   padding: 15px;
   border: 1px solid #ddd;
@@ -44,6 +45,11 @@ h2 {
   margin-bottom: 10px;
 }
 
+h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
 button {
   padding: 5px 10px;
   margin-right: 10px;
@@ -53,4 +59,9 @@ button {
 input {
   margin: 5px;
   padding: 5px;
+}
+
+.charts svg {
+  display: block;
+  margin: 0 auto;
 }
