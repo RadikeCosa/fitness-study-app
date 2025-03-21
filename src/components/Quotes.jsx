@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import quotes from "../data/quotes.json";
 
 function Quotes() {
-  const [currentQuote, setCurrentQuote] = useState("");
-  const [intervalTime, setIntervalTime] = useState(10 * 60 * 1000); // 10 minutos en milisegundos
+  const [currentQuote, setCurrentQuote] = useState({ text: "", author: "" });
+  const [intervalTime, setIntervalTime] = useState(10 * 60 * 1000); // 10 minutos
 
   const getRandomQuote = () => {
     const randomIndex = Math.floor(Math.random() * quotes.length);
@@ -17,9 +17,12 @@ function Quotes() {
   }, [intervalTime]);
 
   return (
-    <div>
-      <h2>Frase del momento</h2>
-      <p>{currentQuote}</p>
+    <section aria-labelledby="quotes-title">
+      <h2 id="quotes-title">Frase del momento</h2>
+      <blockquote>
+        <p>{currentQuote.text}</p>
+        <cite>— {currentQuote.author}</cite>
+      </blockquote>
       <button onClick={getRandomQuote}>Nueva frase</button>
       <label>
         Cambiar cada (min):
@@ -30,7 +33,7 @@ function Quotes() {
           min="1"
         />
       </label>
-    </div>
+    </section>
   );
 }
 

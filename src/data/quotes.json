@@ -1,7 +1,10 @@
 [
-  "El esfuerzo de hoy es el éxito de mañana.",
-  "Cada paso te acerca a tu meta.",
-  "La disciplina vence al talento cuando el talento no se disciplina.",
-  "No pares hasta estar orgulloso.",
-  "Tu único límite es tu mente."
+  { "text": "El esfuerzo de hoy es el éxito de mañana.", "author": "Anónimo" },
+  { "text": "Cada paso te acerca a tu meta.", "author": "Confucio" },
+  {
+    "text": "La disciplina vence al talento cuando el talento no se disciplina.",
+    "author": "Tim Notke"
+  },
+  { "text": "No pares hasta estar orgulloso.", "author": "Anónimo" },
+  { "text": "Tu único límite es tu mente.", "author": "Napoleón Hill" }
 ]
