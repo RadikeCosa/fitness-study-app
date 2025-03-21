@@ -1,20 +1,49 @@
 /* src/components/Quotes.css */
 .quotes {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: var(--off-white);
-  border: 1px solid var(--camo-gray);
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease;
+  background-color: #3a4a2e;
+  color: #fff;
+  padding: 0.75rem; /* Reducimos de 1rem */
+  text-align: center;
+  border-top: 2px solid var(--earth-brown);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.quotes:hover {
-  box-shadow: var(--shadow-hover);
+.quotes p {
+  font-size: 1.4rem; /* Aumentamos fuente */
+  font-style: italic;
+  margin: 0 0 0.5rem 0; /* Reducimos margen inferior */
+  color: var(--off-white);
 }
 
-/* Responsive */
+.quote-button {
+  background-color: var(--olive-green);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.quote-button:hover {
+  background-color: #6d431b;
+  transform: rotate(90deg);
+}
+
 @media (max-width: 600px) {
   .quotes {
-    padding: 1rem;
+    padding: 0.5rem;
+  }
+
+  .quotes p {
+    font-size: 1.2rem; /* Ajustamos para móvil */
+  }
+
+  .quote-button {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 1rem;
   }
 }

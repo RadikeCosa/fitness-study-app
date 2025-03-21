@@ -1,45 +1,48 @@
 /* src/components/Header.css */
 .header-content {
-  width: 100%; /* Ocupa todo el ancho */
+  width: 100%;
   text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.25rem 1rem; /* Reducimos de 0.5rem */
 }
 
 .header-top {
   display: flex;
-  justify-content: space-between; /* Fecha a la izquierda, hora a la derecha */
-  padding: 0 1rem; /* Espacio en los bordes */
+  justify-content: space-between;
+  padding: 0 1rem;
 }
 
 .header-date {
-  font-size: 1.1rem; /* Un poco más grande */
+  font-size: 1.1rem;
   color: var(--camo-gray);
 }
 
 .header-time {
-  font-size: 1.1rem; /* Un poco más grande */
+  font-size: 1.1rem;
   color: var(--camo-gray);
 }
 
 .header-title {
   font-family: "Staatliches", sans-serif;
-  font-size: 3rem; /* Más grande */
+  font-size: 3rem;
   color: var(--olive-green);
-  margin: 0.5rem 0 0 0; /* Espacio mínimo arriba */
+  margin: 0.1rem 0 0 0; /* Reducimos margen */
 }
 
 @media (max-width: 600px) {
+  .header-content {
+    padding: 0.1rem 0.5rem;
+  }
+
   .header-top {
     padding: 0 0.5rem;
   }
 
   .header-date,
   .header-time {
-    font-size: 0.9rem; /* Más chico en móvil */
+    font-size: 0.9rem;
   }
 
   .header-title {
-    font-size: 2.5rem; /* Ajustado para móvil */
+    font-size: 2.5rem;
   }
 }
