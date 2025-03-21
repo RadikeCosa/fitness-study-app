@@ -19,27 +19,16 @@ header h1 {
   margin-top: 0.5rem;
 }
 
-.timers,
-.quotes,
-.charts {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: var(--off-white);
-  border: 1px solid var(--camo-gray);
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease;
+/* Estilos genéricos mínimos */
+h2 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
 }
 
-.timers:hover,
-.quotes:hover,
-.charts:hover {
-  box-shadow: var(--shadow-hover);
-}
-
-/* Switch de temporizadores */
+/* Estilos del switch */
 .timer-switch {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .timer-switch button {
@@ -57,77 +46,8 @@ header h1 {
 }
 
 .timer-switch button:hover {
-  background-color: #6d431b;
+  background-color: #6d431b; /* Marrón más oscuro */
   transform: translateY(-2px);
-}
-
-.timer-content {
-  transition: opacity 0.3s ease;
-}
-
-/* Componentes internos */
-h2 {
-  font-size: 1.5rem;
-  color: var(--text-dark);
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin: 0.5rem 0;
-  color: var(--camo-gray);
-}
-
-input {
-  padding: 0.5rem;
-  border: 1px solid var(--camo-gray);
-  border-radius: 4px;
-  width: 100%;
-  max-width: 100px;
-  background-color: #fff;
-}
-
-button:not(.timer-switch button) {
-  padding: 0.5rem 1rem;
-  margin: 0.5rem 0.5rem 0 0;
-  background-color: var(--olive-green);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:not(.timer-switch button):hover {
-  background-color: #3a4a2e;
-}
-
-.charts svg {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-}
-
-.charts .exercise-bar {
-  fill: var(--olive-green);
-  transition: fill 0.3s ease;
-  max-width: 2rem;
-}
-
-.charts .study-bar {
-  fill: var(--earth-brown);
-  transition: fill 0.3s ease;
-  max-width: 2rem;
-}
-
-.charts svg rect:hover {
-  fill-opacity: 0.8;
-}
-
-h3 {
-  font-size: 1.2rem;
-  color: var(--text-dark);
-  margin: 1rem 0 0.5rem;
 }
 
 /* Responsive */
@@ -140,12 +60,6 @@ h3 {
     font-size: 2rem;
   }
 
-  .timers,
-  .quotes,
-  .charts {
-    padding: 1rem;
-  }
-
   h2 {
     font-size: 1.25rem;
   }
@@ -153,19 +67,5 @@ h3 {
   .timer-switch button {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
-  }
-
-  input {
-    max-width: 80px;
-  }
-
-  .charts svg {
-    width: 100%;
-    height: auto;
-  }
-
-  .charts .exercise-bar,
-  .charts .study-bar {
-    max-width: 1.5rem;
   }
 }

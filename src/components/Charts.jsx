@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import "./Charts.css";
 
 function Charts({ exerciseTime, studyTime }) {
   const dailyRef = useRef();
@@ -28,7 +29,6 @@ function Charts({ exerciseTime, studyTime }) {
       { label: "Estudio", value: (dailyStudy[today] || 0) / 3600 },
     ];
 
-    // Gráfico de historial diario
     const dailySvg = d3.select(dailyRef.current);
     dailySvg.selectAll("*").remove();
     const width = 400;
@@ -39,7 +39,7 @@ function Charts({ exerciseTime, studyTime }) {
       .scaleBand()
       .domain(days)
       .range([margin.left, width - margin.right])
-      .padding(0.5); // Más padding para espaciado
+      .padding(0.5);
 
     const y = d3
       .scaleLinear()
@@ -49,17 +49,16 @@ function Charts({ exerciseTime, studyTime }) {
 
     dailySvg.attr("width", width).attr("height", height);
 
-    const barWidth = 32; // Equivalente a 2rem (16px * 2 asumiendo font-size base de 16px)
-
+    const barWidth = 32;
     dailySvg
       .selectAll(".exercise-bar")
       .data(dailyData)
       .enter()
       .append("rect")
       .attr("class", "exercise-bar")
-      .attr("x", (d) => x(d.day) + (x.bandwidth() - barWidth * 2) / 2) // Centrar barras
+      .attr("x", (d) => x(d.day) + (x.bandwidth() - barWidth * 2) / 2)
       .attr("y", (d) => y(d.exercise))
-      .attr("width", barWidth) // Ancho fijo
+      .attr("width", barWidth)
       .attr("height", (d) => height - margin.bottom - y(d.exercise));
 
     dailySvg
@@ -71,7 +70,7 @@ function Charts({ exerciseTime, studyTime }) {
       .attr(
         "x",
         (d) => x(d.day) + (x.bandwidth() - barWidth * 2) / 2 + barWidth + 4
-      ) // Desplazar a la derecha con espacio
+      )
       .attr("y", (d) => y(d.study))
       .attr("width", barWidth)
       .attr("height", (d) => height - margin.bottom - y(d.study));
@@ -95,7 +94,6 @@ function Charts({ exerciseTime, studyTime }) {
       .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(y).ticks(5));
 
-    // Gráfico del día actual (sin cambios en ancho, queda como está)
     const todaySvg = d3.select(todayRef.current);
     todaySvg.selectAll("*").remove();
 
@@ -138,7 +136,7 @@ function Charts({ exerciseTime, studyTime }) {
   }, [exerciseTime, studyTime]);
 
   return (
-    <section aria-labelledby="charts-title">
+    <section className="charts" aria-labelledby="charts-title">
       <h2 id="charts-title">Tiempo acumulado (horas)</h2>
       <h3>Últimos 7 días</h3>
       <svg ref={dailyRef}></svg>

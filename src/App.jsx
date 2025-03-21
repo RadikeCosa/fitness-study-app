@@ -27,33 +27,25 @@ function App() {
         <h1>Argestan</h1>
       </header>
       <main>
-        <section className="timers">
-          <div className="timer-switch">
-            <button
-              onClick={() => setShowHiit(!showHiit)}
-              aria-label={
-                showHiit
-                  ? "Cambiar al temporizador de estudio (Pomodoro)"
-                  : "Cambiar al temporizador de ejercicio (HIIT)"
-              }
-            >
-              {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
-            </button>
-          </div>
-          <div className="timer-content">
-            {showHiit ? (
-              <HiitTimer onTimeUpdate={setExerciseTime} />
-            ) : (
-              <Pomodoro onTimeUpdate={setStudyTime} />
-            )}
-          </div>
-        </section>
-        <section className="quotes">
-          <Quotes />
-        </section>
-        <section className="charts">
-          <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
-        </section>
+        <div className="timer-switch">
+          <button
+            onClick={() => setShowHiit(!showHiit)}
+            aria-label={
+              showHiit
+                ? "Cambiar al temporizador de estudio (Pomodoro)"
+                : "Cambiar al temporizador de ejercicio (HIIT)"
+            }
+          >
+            {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
+          </button>
+        </div>
+        {showHiit ? (
+          <HiitTimer onTimeUpdate={setExerciseTime} />
+        ) : (
+          <Pomodoro onTimeUpdate={setStudyTime} />
+        )}
+        <Quotes />
+        <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
       </main>
     </div>
   );
