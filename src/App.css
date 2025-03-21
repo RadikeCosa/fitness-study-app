@@ -53,7 +53,7 @@ header h1 {
 }
 
 .timers button:hover {
-  background-color: #6d431b; /* Marrón más oscuro */
+  background-color: #6d431b;
 }
 
 /* Componentes internos */
@@ -90,20 +90,30 @@ button:not(.timers button) {
 }
 
 button:not(.timers button):hover {
-  background-color: #3a4a2e; /* Verde más oscuro */
+  background-color: #3a4a2e;
 }
 
 /* Gráficos */
 .charts svg {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
 }
 
-.charts svg .exercise-bar {
+.charts .exercise-bar {
   fill: var(--olive-green);
+  transition: fill 0.3s ease;
+  max-width: 2rem; /* Ancho máximo */
 }
-.charts svg .study-bar {
+
+.charts .study-bar {
   fill: var(--earth-brown);
+  transition: fill 0.3s ease;
+  max-width: 2rem; /* Ancho máximo */
+}
+
+.charts svg rect:hover {
+  fill-opacity: 0.8;
 }
 
 h3 {
@@ -144,5 +154,10 @@ h3 {
   .charts svg {
     width: 100%;
     height: auto;
+  }
+
+  .charts .exercise-bar,
+  .charts .study-bar {
+    max-width: 1.5rem; /* Reducir aún más en móvil */
   }
 }

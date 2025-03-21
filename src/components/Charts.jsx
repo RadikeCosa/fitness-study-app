@@ -11,7 +11,6 @@ function Charts({ exerciseTime, studyTime }) {
     const dailyStudy = JSON.parse(localStorage.getItem("dailyStudy")) || {};
     const today = new Date().toISOString().split("T")[0];
 
-    // Historial de los últimos 7 días
     const days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - i);
@@ -20,11 +19,10 @@ function Charts({ exerciseTime, studyTime }) {
 
     const dailyData = days.map((day) => ({
       day,
-      exercise: (dailyExercise[day] || 0) / 3600, // Convertir a horas
+      exercise: (dailyExercise[day] || 0) / 3600,
       study: (dailyStudy[day] || 0) / 3600,
     }));
 
-    // Datos del día actual
     const todayData = [
       { label: "Ejercicio", value: (dailyExercise[today] || 0) / 3600 },
       { label: "Estudio", value: (dailyStudy[today] || 0) / 3600 },
@@ -41,7 +39,7 @@ function Charts({ exerciseTime, studyTime }) {
       .scaleBand()
       .domain(days)
       .range([margin.left, width - margin.right])
-      .padding(0.1);
+      .padding(0.5); // Más padding para espaciado
 
     const y = d3
       .scaleLinear()
@@ -51,17 +49,18 @@ function Charts({ exerciseTime, studyTime }) {
 
     dailySvg.attr("width", width).attr("height", height);
 
+    const barWidth = 32; // Equivalente a 2rem (16px * 2 asumiendo font-size base de 16px)
+
     dailySvg
       .selectAll(".exercise-bar")
       .data(dailyData)
       .enter()
       .append("rect")
       .attr("class", "exercise-bar")
-      .attr("x", (d) => x(d.day))
+      .attr("x", (d) => x(d.day) + (x.bandwidth() - barWidth * 2) / 2) // Centrar barras
       .attr("y", (d) => y(d.exercise))
-      .attr("width", x.bandwidth() / 2)
-      .attr("height", (d) => height - margin.bottom - y(d.exercise))
-      .attr("fill", "steelblue");
+      .attr("width", barWidth) // Ancho fijo
+      .attr("height", (d) => height - margin.bottom - y(d.exercise));
 
     dailySvg
       .selectAll(".study-bar")
@@ -69,11 +68,13 @@ function Charts({ exerciseTime, studyTime }) {
       .enter()
       .append("rect")
       .attr("class", "study-bar")
-      .attr("x", (d) => x(d.day) + x.bandwidth() / 2)
+      .attr(
+        "x",
+        (d) => x(d.day) + (x.bandwidth() - barWidth * 2) / 2 + barWidth + 4
+      ) // Desplazar a la derecha con espacio
       .attr("y", (d) => y(d.study))
-      .attr("width", x.bandwidth() / 2)
-      .attr("height", (d) => height - margin.bottom - y(d.study))
-      .attr("fill", "orange");
+      .attr("width", barWidth)
+      .attr("height", (d) => height - margin.bottom - y(d.study));
 
     dailySvg
       .append("g")
@@ -94,7 +95,7 @@ function Charts({ exerciseTime, studyTime }) {
       .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(y).ticks(5));
 
-    // Gráfico del día actual
+    // Gráfico del día actual (sin cambios en ancho, queda como está)
     const todaySvg = d3.select(todayRef.current);
     todaySvg.selectAll("*").remove();
 
@@ -117,12 +118,13 @@ function Charts({ exerciseTime, studyTime }) {
       .data(todayData)
       .enter()
       .append("rect")
-      .attr("class", "bar")
+      .attr("class", (d) =>
+        d.label === "Ejercicio" ? "exercise-bar" : "study-bar"
+      )
       .attr("x", (d) => tx(d.label))
       .attr("y", (d) => ty(d.value))
       .attr("width", tx.bandwidth())
-      .attr("height", (d) => height - margin.bottom - ty(d.value))
-      .attr("fill", (d) => (d.label === "Ejercicio" ? "steelblue" : "orange"));
+      .attr("height", (d) => height - margin.bottom - ty(d.value));
 
     todaySvg
       .append("g")
