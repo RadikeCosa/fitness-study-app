@@ -1,67 +1,148 @@
+/* src/App.css */
 .app-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
+/* Header */
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
-h1 {
-  font-size: 2rem;
-  color: #333;
+header h1 {
+  font-size: 2.5rem;
+  color: var(--olive-green);
+  margin-top: 0.5rem;
 }
 
+/* Secciones */
 .timers,
 .quotes,
 .charts {
-  margin-bottom: 30px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--off-white);
+  border: 1px solid var(--camo-gray);
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
 }
 
+.timers:hover,
+.quotes:hover,
+.charts:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Botón de alternancia */
 .timers button {
   display: block;
-  margin: 0 auto 15px auto;
-  padding: 8px 16px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
+  margin: 0 auto 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: var(--earth-brown);
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .timers button:hover {
-  background-color: #0056b3;
+  background-color: #6d431b; /* Marrón más oscuro */
 }
 
+/* Componentes internos */
 h2 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
+  color: var(--camo-gray);
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid var(--camo-gray);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 100px;
+  background-color: #fff;
+}
+
+button:not(.timers button) {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0.5rem 0 0;
+  background-color: var(--olive-green);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:not(.timers button):hover {
+  background-color: #3a4a2e; /* Verde más oscuro */
+}
+
+/* Gráficos */
+.charts svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.charts svg .exercise-bar {
+  fill: var(--olive-green);
+}
+.charts svg .study-bar {
+  fill: var(--earth-brown);
 }
 
 h3 {
   font-size: 1.2rem;
-  margin: 10px 0;
+  color: var(--text-dark);
+  margin: 1rem 0 0.5rem;
 }
 
-button {
-  padding: 5px 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
+/* Responsive */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 1rem;
+  }
 
-input {
-  margin: 5px;
-  padding: 5px;
-}
+  header h1 {
+    font-size: 2rem;
+  }
 
-.charts svg {
-  display: block;
-  margin: 0 auto;
+  .timers,
+  .quotes,
+  .charts {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .timers button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  input {
+    max-width: 80px;
+  }
+
+  .charts svg {
+    width: 100%;
+    height: auto;
+  }
 }

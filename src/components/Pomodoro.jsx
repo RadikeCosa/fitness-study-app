@@ -31,7 +31,7 @@ function Pomodoro({ onTimeUpdate }) {
           const newTime = prev - 1;
           if (isStudy) {
             setTotalStudy((prevTotal) => {
-              const newTotal = prevTotal + 1; // Sumar 1 segundo
+              const newTotal = prevTotal + 1;
               localStorage.setItem("totalStudy", newTotal);
               updateDailyStudy(newTotal);
               onTimeUpdate(newTotal);
@@ -77,49 +77,55 @@ function Pomodoro({ onTimeUpdate }) {
     return `${hours}h ${minutes}m`;
   };
 
+  const handleReset = () => {
+    setIsRunning(false);
+    setCurrentTime(studyTime);
+    setCurrentCycle(1);
+    setTotalStudy(0);
+    localStorage.setItem("totalStudy", "0");
+    updateDailyStudy(0);
+    onTimeUpdate(0);
+  };
+
   return (
-    <div>
+    <div className="pomodoro">
       <h2>Pomodoro Timer</h2>
-      <label>
-        Estudio (min):
-        <input
-          type="number"
-          value={studyTime / 60}
-          onChange={(e) => setStudyTime(+e.target.value * 60)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
-      <label>
-        Descanso corto (min):
-        <input
-          type="number"
-          value={shortBreak / 60}
-          onChange={(e) => setShortBreak(+e.target.value * 60)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
-      <label>
-        Descanso largo (min):
-        <input
-          type="number"
-          value={longBreak / 60}
-          onChange={(e) => setLongBreak(+e.target.value * 60)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
-      <label>
-        Ciclos:
-        <input
-          type="number"
-          value={cycles}
-          onChange={(e) => setCycles(+e.target.value)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
+      <label htmlFor="study-input">Estudio (min):</label>
+      <input
+        id="study-input"
+        type="number"
+        value={studyTime / 60}
+        onChange={(e) => setStudyTime(+e.target.value * 60)}
+        disabled={isRunning}
+        min="1"
+      />
+      <label htmlFor="short-break-input">Descanso corto (min):</label>
+      <input
+        id="short-break-input"
+        type="number"
+        value={shortBreak / 60}
+        onChange={(e) => setShortBreak(+e.target.value * 60)}
+        disabled={isRunning}
+        min="1"
+      />
+      <label htmlFor="long-break-input">Descanso largo (min):</label>
+      <input
+        id="long-break-input"
+        type="number"
+        value={longBreak / 60}
+        onChange={(e) => setLongBreak(+e.target.value * 60)}
+        disabled={isRunning}
+        min="1"
+      />
+      <label htmlFor="cycles-input">Ciclos:</label>
+      <input
+        id="cycles-input"
+        type="number"
+        value={cycles}
+        onChange={(e) => setCycles(+e.target.value)}
+        disabled={isRunning}
+        min="1"
+      />
       <p>
         Ciclo {currentCycle}/{cycles} -{" "}
         {isStudy
@@ -133,19 +139,7 @@ function Pomodoro({ onTimeUpdate }) {
       <button onClick={() => setIsRunning(!isRunning)}>
         {isRunning ? "Pausar" : "Iniciar"}
       </button>
-      <button
-        onClick={() => {
-          setIsRunning(false);
-          setCurrentTime(studyTime);
-          setCurrentCycle(1);
-          setTotalStudy(0);
-          localStorage.setItem("totalStudy", "0");
-          updateDailyStudy(0);
-          onTimeUpdate(0);
-        }}
-      >
-        Reiniciar
-      </button>
+      <button onClick={handleReset}>Reiniciar</button>
     </div>
   );
 }

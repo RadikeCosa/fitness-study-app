@@ -32,7 +32,7 @@ function HiitTimer({ onTimeUpdate }) {
           const newTime = prev - 1;
           if (isWork) {
             setTotalExercise((prevTotal) => {
-              const newTotal = prevTotal + 1; // Sumar 1 segundo
+              const newTotal = prevTotal + 1;
               localStorage.setItem("totalExercise", newTotal);
               updateDailyExercise(newTotal);
               onTimeUpdate(newTotal);
@@ -73,39 +73,46 @@ function HiitTimer({ onTimeUpdate }) {
     return `${hours}h ${minutes}m`;
   };
 
+  const handleReset = () => {
+    setIsRunning(false);
+    setCurrentTime(workTime);
+    setCurrentRound(1);
+    setTotalExercise(0);
+    localStorage.setItem("totalExercise", "0");
+    updateDailyExercise(0);
+    onTimeUpdate(0);
+  };
+
   return (
-    <div>
+    <div className="hiit-timer">
       <h2>HIIT Timer</h2>
-      <label>
-        Rondas:
-        <input
-          type="number"
-          value={rounds}
-          onChange={(e) => setRounds(+e.target.value)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
-      <label>
-        Trabajo (s):
-        <input
-          type="number"
-          value={workTime}
-          onChange={(e) => setWorkTime(+e.target.value)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
-      <label>
-        Descanso (s):
-        <input
-          type="number"
-          value={restTime}
-          onChange={(e) => setRestTime(+e.target.value)}
-          disabled={isRunning}
-          min="1"
-        />
-      </label>
+      <label htmlFor="rounds-input">Rondas:</label>
+      <input
+        id="rounds-input"
+        type="number"
+        value={rounds}
+        onChange={(e) => setRounds(+e.target.value)}
+        disabled={isRunning}
+        min="1"
+      />
+      <label htmlFor="work-input">Trabajo (s):</label>
+      <input
+        id="work-input"
+        type="number"
+        value={workTime}
+        onChange={(e) => setWorkTime(+e.target.value)}
+        disabled={isRunning}
+        min="1"
+      />
+      <label htmlFor="rest-input">Descanso (s):</label>
+      <input
+        id="rest-input"
+        type="number"
+        value={restTime}
+        onChange={(e) => setRestTime(+e.target.value)}
+        disabled={isRunning}
+        min="1"
+      />
       <p>
         Ronda {currentRound}/{rounds} - {isWork ? "Trabajo" : "Descanso"}:{" "}
         {currentTime}s
@@ -114,19 +121,7 @@ function HiitTimer({ onTimeUpdate }) {
       <button onClick={() => setIsRunning(!isRunning)}>
         {isRunning ? "Pausar" : "Iniciar"}
       </button>
-      <button
-        onClick={() => {
-          setIsRunning(false);
-          setCurrentTime(workTime);
-          setCurrentRound(1);
-          setTotalExercise(0);
-          localStorage.setItem("totalExercise", "0");
-          updateDailyExercise(0);
-          onTimeUpdate(0);
-        }}
-      >
-        Reiniciar
-      </button>
+      <button onClick={handleReset}>Reiniciar</button>
     </div>
   );
 }
