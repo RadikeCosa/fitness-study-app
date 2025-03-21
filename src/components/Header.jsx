@@ -4,9 +4,25 @@ function Header() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    setTime(new Date()); // Establece la hora inicial
-    const timer = setInterval(() => setTime(new Date()), 60 * 1000); // Actualiza cada minuto
-    return () => clearInterval(timer);
+    const updateTime = () => setTime(new Date());
+
+    // Calcular milisegundos hasta el próximo minuto
+    const now = new Date();
+    const secondsUntilNextMinute = 60 - now.getSeconds();
+    const msUntilNextMinute =
+      secondsUntilNextMinute * 1000 - now.getMilliseconds();
+
+    // Primer cambio alineado al próximo minuto
+    const initialTimeout = setTimeout(() => {
+      updateTime();
+      // Después del primer cambio, intervalo fijo de 60 segundos
+      const interval = setInterval(updateTime, 60 * 1000);
+      // Limpieza del intervalo al desmontar
+      return () => clearInterval(interval);
+    }, msUntilNextMinute);
+
+    // Limpieza del timeout inicial al desmontar
+    return () => clearTimeout(initialTimeout);
   }, []);
 
   const options = {
@@ -19,7 +35,7 @@ function Header() {
   const timeStr = time.toLocaleTimeString("es-ES", {
     hour: "2-digit",
     minute: "2-digit",
-  }); // Sin segundos
+  });
 
   return (
     <header>
