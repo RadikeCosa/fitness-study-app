@@ -28,19 +28,25 @@ function App() {
       </header>
       <main>
         <section className="timers">
-          <button
-            onClick={() => setShowHiit(!showHiit)}
-            aria-label={
-              showHiit ? "Cambiar a modo Estudiar" : "Cambiar a modo Ejercicio"
-            }
-          >
-            {showHiit ? "Estudiar" : "Hacer ejercicio"}
-          </button>
-          {showHiit ? (
-            <HiitTimer onTimeUpdate={setExerciseTime} />
-          ) : (
-            <Pomodoro onTimeUpdate={setStudyTime} />
-          )}
+          <div className="timer-switch">
+            <button
+              onClick={() => setShowHiit(!showHiit)}
+              aria-label={
+                showHiit
+                  ? "Cambiar al temporizador de estudio (Pomodoro)"
+                  : "Cambiar al temporizador de ejercicio (HIIT)"
+              }
+            >
+              {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
+            </button>
+          </div>
+          <div className="timer-content">
+            {showHiit ? (
+              <HiitTimer onTimeUpdate={setExerciseTime} />
+            ) : (
+              <Pomodoro onTimeUpdate={setStudyTime} />
+            )}
+          </div>
         </section>
         <section className="quotes">
           <Quotes />

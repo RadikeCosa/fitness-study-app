@@ -8,7 +8,6 @@
   box-shadow: var(--shadow);
 }
 
-/* Header */
 header {
   text-align: center;
   margin-bottom: 2rem;
@@ -20,7 +19,6 @@ header h1 {
   margin-top: 0.5rem;
 }
 
-/* Secciones */
 .timers,
 .quotes,
 .charts {
@@ -38,10 +36,16 @@ header h1 {
   box-shadow: var(--shadow-hover);
 }
 
-/* Botón de alternancia */
-.timers button {
-  display: block;
-  margin: 0 auto 1rem;
+/* Switch de temporizadores */
+.timer-switch {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.timer-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   font-size: 1.1rem;
   background-color: var(--earth-brown);
@@ -49,11 +53,16 @@ header h1 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.timers button:hover {
+.timer-switch button:hover {
   background-color: #6d431b;
+  transform: translateY(-2px);
+}
+
+.timer-content {
+  transition: opacity 0.3s ease;
 }
 
 /* Componentes internos */
@@ -78,7 +87,7 @@ input {
   background-color: #fff;
 }
 
-button:not(.timers button) {
+button:not(.timer-switch button) {
   padding: 0.5rem 1rem;
   margin: 0.5rem 0.5rem 0 0;
   background-color: var(--olive-green);
@@ -89,11 +98,10 @@ button:not(.timers button) {
   transition: background-color 0.3s ease;
 }
 
-button:not(.timers button):hover {
+button:not(.timer-switch button):hover {
   background-color: #3a4a2e;
 }
 
-/* Gráficos */
 .charts svg {
   display: block;
   margin: 0 auto;
@@ -103,13 +111,13 @@ button:not(.timers button):hover {
 .charts .exercise-bar {
   fill: var(--olive-green);
   transition: fill 0.3s ease;
-  max-width: 2rem; /* Ancho máximo */
+  max-width: 2rem;
 }
 
 .charts .study-bar {
   fill: var(--earth-brown);
   transition: fill 0.3s ease;
-  max-width: 2rem; /* Ancho máximo */
+  max-width: 2rem;
 }
 
 .charts svg rect:hover {
@@ -142,7 +150,7 @@ h3 {
     font-size: 1.25rem;
   }
 
-  .timers button {
+  .timer-switch button {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
   }
@@ -158,6 +166,6 @@ h3 {
 
   .charts .exercise-bar,
   .charts .study-bar {
-    max-width: 1.5rem; /* Reducir aún más en móvil */
+    max-width: 1.5rem;
   }
 }
