@@ -4,7 +4,8 @@ function Header() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
+    setTime(new Date()); // Establece la hora inicial
+    const timer = setInterval(() => setTime(new Date()), 60 * 1000); // Actualiza cada minuto
     return () => clearInterval(timer);
   }, []);
 
@@ -15,7 +16,10 @@ function Header() {
     day: "numeric",
   };
   const dateStr = time.toLocaleDateString("es-ES", options);
-  const timeStr = time.toLocaleTimeString("es-ES");
+  const timeStr = time.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }); // Sin segundos
 
   return (
     <header>
