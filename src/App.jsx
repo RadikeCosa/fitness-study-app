@@ -8,7 +8,7 @@ import Charts from "./components/Charts";
 
 function App() {
   const [showHiit, setShowHiit] = useState(true);
-  const [showCharts, setShowCharts] = useState(false); // Estado para Charts
+  const [showCharts, setShowCharts] = useState(false);
   const [exerciseTime, setExerciseTime] = useState(
     () => parseInt(localStorage.getItem("totalExercise")) || 0
   );
@@ -25,12 +25,10 @@ function App() {
     <div className="app-container">
       <header>
         <Header />
-        <h1>Argestan</h1>
       </header>
       <main>
         <div className="controls">
           <button
-            className="timer-switch"
             onClick={() => setShowHiit(!showHiit)}
             aria-label={
               showHiit
@@ -41,7 +39,6 @@ function App() {
             {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
           </button>
           <button
-            className="charts-toggle"
             onClick={() => setShowCharts(!showCharts)}
             aria-label={showCharts ? "Ocultar totales" : "Ver totales"}
           >
