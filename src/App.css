@@ -2,6 +2,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 header {
@@ -9,12 +10,47 @@ header {
   margin-bottom: 20px;
 }
 
+h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
 .timers,
 .quotes {
   margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-h1 {
-  font-size: 2rem;
+.timers button {
+  display: block;
+  margin: 0 auto 15px auto;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.timers button:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  font-size: 1.5rem;
   margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+input {
+  margin: 5px;
+  padding: 5px;
 }

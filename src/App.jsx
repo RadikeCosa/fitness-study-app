@@ -1,10 +1,13 @@
+import { useState } from "react";
+import "./App.css";
 import Header from "./components/Header";
 import HiitTimer from "./components/HiitTimer";
 import Pomodoro from "./components/Pomodoro";
 import Quotes from "./components/Quotes";
-import "./App.css";
 
 function App() {
+  const [showHiit, setShowHiit] = useState(true); // true = HIIT, false = Pomodoro
+
   return (
     <div className="app-container">
       <header>
@@ -13,8 +16,15 @@ function App() {
       </header>
       <main>
         <section className="timers">
-          <HiitTimer />
-          <Pomodoro />
+          <button
+            onClick={() => setShowHiit(!showHiit)}
+            aria-label={
+              showHiit ? "Cambiar a modo Estudiar" : "Cambiar a modo Ejercicio"
+            }
+          >
+            {showHiit ? "Estudiar" : "Hacer ejercicio"}
+          </button>
+          {showHiit ? <HiitTimer /> : <Pomodoro />}
         </section>
         <section className="quotes">
           <Quotes />
