@@ -10,22 +10,23 @@ function Header() {
     month: "2-digit",
     year: "numeric",
   });
+  const dateISO = date.toISOString().split("T")[0]; // Para datetime
   const formattedTime = date.toLocaleTimeString("es-ES", {
     hour: "2-digit",
     minute: "2-digit",
   });
 
   return (
-    <div className="header-container">
-      <div className="header-date">
+    <header className="header-container">
+      <time className="header-date" dateTime={dateISO}>
         <span className="header-day">{formattedDateDay}</span>
         <span className="header-num">{formattedDateNum}</span>
-      </div>
+      </time>
       <h1 className="header-title">Argestan</h1>
-      <div className="header-time">
+      <time className="header-time" dateTime={date.toISOString()}>
         <span>{formattedTime}</span>
-      </div>
-    </div>
+      </time>
+    </header>
   );
 }
 
