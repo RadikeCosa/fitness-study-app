@@ -1,58 +1,62 @@
 /* src/components/Quotes.css */
 .quotes {
-  height: 100%; /* Ocupa el 15% de App.css */
+  height: 100%; /* Ocupa el 20% de App.css */
   width: 100%;
-  background-color: var(--dark-olive);
-  color: var(--off-white);
+  background-color: var(--panel-bg); /* #FFFFFF - Fondo blanco */
+  color: var(--text-primary); /* #1A1A1A - Texto principal */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  border-top: 1px solid var(--border); /* #E5E7EB - Borde superior */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave arriba */
 }
 
 blockquote {
   text-align: center;
   margin: 0;
+  max-width: 80%; /* Limita el ancho para mejor legibilidad */
 }
 
 blockquote p {
-  font-size: 1.4rem;
+  font-size: 1.25rem; /* Reduje de 1.4rem para minimalismo */
   font-style: italic;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
 blockquote cite {
   font-size: 1rem;
   font-style: normal;
-  color: var(--camo-gray);
+  color: var(--text-secondary); /* #6B7280 - Gris suave */
 }
 
 .quotes button {
-  background-color: var(--olive-green);
-  color: var(--off-white);
+  background-color: var(--accent); /* #3B82F6 - Azul limpio */
+  color: var(--panel-bg); /* #FFFFFF - Contraste */
   border: none;
   border-radius: 50%;
   width: 2rem;
   height: 2rem;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-top: 0.5rem;
-  display: flex; /* Centramos el ícono */
+  margin-top: 0.75rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Mantenemos transición */
-  transform-origin: center; /* Rotación desde el centro */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .quotes button:hover,
 .quotes button:focus {
-  background-color: var(--earth-brown);
+  background-color: var(--accent-hover); /* #2563EB - Azul más oscuro */
   transform: rotate(90deg);
 }
 
 .quotes button:focus {
-  outline: 2px solid var(--off-white);
+  outline: 2px solid var(--accent); /* #3B82F6 */
   outline-offset: 2px;
 }
 
@@ -62,8 +66,12 @@ blockquote cite {
     padding: 0.5rem;
   }
 
+  blockquote {
+    max-width: 90%;
+  }
+
   blockquote p {
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Ajustado de 1.2rem */
   }
 
   blockquote cite {
