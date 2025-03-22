@@ -14,8 +14,9 @@ header {
   height: 15%;
   width: 100%;
 }
-main {
+.main {
   height: 70%;
+  margin: auto;
 }
 footer {
   height: 15%;

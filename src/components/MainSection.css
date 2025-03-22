@@ -1,0 +1,14 @@
+.main {
+  width: 100%;
+  display: flex;
+}
+.right {
+  width: 50%;
+  border: 1px solid black;
+  height: 100%;
+}
+.left {
+  width: 50%;
+  height: 100%;
+  border: 1px solid black;
+}
