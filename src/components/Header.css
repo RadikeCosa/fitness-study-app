@@ -40,22 +40,24 @@
   font-size: 1.2rem;
   width: 33.33%;
 }
-
 /* Responsive */
 @media (max-width: 600px) {
   .header-container {
     padding: 0 0.5rem;
+    display: flex; /* Seguimos usando flex para centrar el título */
+    justify-content: center; /* Centramos el contenido */
   }
 
   .header-date {
-    font-size: 0.8rem;
+    display: none; /* Ocultamos la fecha */
   }
 
   .header-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    width: 100%; /* Ocupa todo el ancho */
   }
 
   .header-time {
-    font-size: 1rem;
+    display: none; /* Ocultamos la hora */
   }
 }
