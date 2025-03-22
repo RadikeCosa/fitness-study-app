@@ -19,12 +19,12 @@ function Header() {
   return (
     <header className="header-container">
       <time className="header-date" dateTime={dateISO}>
-        <span className="header-day">{formattedDateDay}</span>
-        <span className="header-num">{formattedDateNum}</span>
+        <div className="header-day">{formattedDateDay}</div>
+        <div className="header-num">{formattedDateNum}</div>
       </time>
       <h1 className="header-title">Argestan</h1>
       <time className="header-time" dateTime={date.toISOString()}>
-        <span>{formattedTime}</span>
+        <p>{formattedTime}</p>
       </time>
     </header>
   );
