@@ -1,0 +1,73 @@
+/* src/components/ExerciseTimer.css */
+.exercise-timer {
+  background-color: var(--camo-gray);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
+}
+
+.timer-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--off-white);
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.controls button {
+  background-color: var(--olive-green);
+  color: var(--off-white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover:not(:disabled),
+.controls button:focus:not(:disabled) {
+  background-color: var(--earth-brown);
+}
+
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls button:focus {
+  outline: 2px solid var(--off-white);
+  outline-offset: 2px;
+}
+
+.time-stats {
+  font-size: 0.9rem;
+  color: var(--off-white);
+}
+
+.time-stats dt {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.time-stats dd {
+  margin: 0 0 0.5rem 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

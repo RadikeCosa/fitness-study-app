@@ -4,20 +4,20 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(
-    --dark-olive
-  ); /* Fondo oscuro coherente con header/footer */
-  color: var(--off-white); /* Texto claro en todo el contenedor */
+  background-color: var(--dark-olive);
+  color: var(--off-white);
 }
 
 header {
   height: 15%;
   width: 100%;
 }
-.main {
+
+main {
   height: 70%;
-  margin: auto;
+  width: 100%;
 }
+
 footer {
   height: 15%;
   width: 100%;

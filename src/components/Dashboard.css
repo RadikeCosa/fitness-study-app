@@ -1,0 +1,50 @@
+/* src/components/Dashboard.css */
+.dashboard {
+  width: 100%;
+  height: 100%; /* Usa todo el alto disponible del main */
+  display: flex;
+  flex-direction: row;
+}
+
+.stats-area {
+  width: 50%;
+  height: 100%; /* Ocupa todo el alto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-area {
+  width: 50%;
+  height: 100%; /* Ocupa todo el alto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.placeholder {
+  background-color: var(--camo-gray);
+  color: var(--off-white);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .stats-area,
+  .timer-area {
+    width: 100%;
+    height: 50%; /* Divide el alto en móviles */
+  }
+
+  .timer-area {
+    padding: 0.5rem;
+  }
+}

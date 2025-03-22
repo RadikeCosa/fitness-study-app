@@ -1,14 +1,17 @@
 import "./App.css";
 import Header from "./components/Header";
 import Quotes from "./components/Quotes";
-import MainSection from "./components/MainSection";
+import Dashboard from "./components/Dashboard"; // Nuevo nombre
+
 function App() {
   return (
     <div className="app-container">
       <header>
         <Header />
       </header>
-      <MainSection />
+      <main>
+        <Dashboard />
+      </main>
       <footer>
         <Quotes />
       </footer>
