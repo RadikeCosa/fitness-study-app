@@ -1,59 +1,27 @@
 /* src/components/Dashboard.css */
 .dashboard {
   width: 100%;
-  height: 100%;
+  height: 100vh; /* Todo el alto disponible */
   display: flex;
   flex-direction: row;
+  background-color: var(--base-bg); /* #F7F7F8 */
 }
 
-.timer-area {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.exercise-log-section,
+.stats-display-section {
+  width: 50%; /* Reparten el ancho equitativamente */
+  height: 100%; /* Usan todo el alto */
   padding: 1rem;
+  box-sizing: border-box;
 }
 
-.stats-area {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.exercise-log-section {
+  background-color: var(--panel-bg); /* #FFFFFF */
+  border-right: 1px solid var(--border); /* #E5E7EB - Separación sutil */
 }
 
-.placeholder {
-  background-color: var(--camo-gray);
-  color: var(--off-white);
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 1.2rem;
-  opacity: 0.8;
-}
-
-.switch-timer-btn {
-  background-color: var(--camo-gray);
-  color: #e0e0e0;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-}
-
-.switch-timer-btn:hover,
-.switch-timer-btn:focus {
-  background-color: var(--earth-brown);
-}
-
-.switch-timer-btn:focus {
-  outline: 2px solid #e0e0e0;
-  outline-offset: 2px;
+.stats-display-section {
+  background-color: var(--panel-bg); /* #FFFFFF */
 }
 
 @media (max-width: 600px) {
@@ -61,18 +29,15 @@
     flex-direction: column;
   }
 
-  .timer-area,
-  .stats-area {
+  .exercise-log-section,
+  .stats-display-section {
     width: 100%;
-    height: 50%;
+    height: 50%; /* En móviles, se apilan y reparten el alto */
+    border-right: none;
+    border-bottom: 1px solid var(--border); /* Separación vertical */
   }
 
-  .timer-area {
-    padding: 0.5rem;
-  }
-
-  .switch-timer-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
+  .stats-display-section {
+    border-bottom: none; /* Último no necesita borde */
   }
 }

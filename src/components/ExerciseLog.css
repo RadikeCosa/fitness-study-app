@@ -1,0 +1,21 @@
+/* src/components/ExerciseLog.css */
+.exercise-log {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-primary); /* #1A1A1A */
+}
+
+.exercise-log h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.exercise-log p {
+  font-size: 1rem;
+  color: var(--text-secondary); /* #6B7280 */
+}
