@@ -1,25 +1,27 @@
 /* src/components/Header.css */
 .header-container {
-  display: flex; /* Flexbox horizontal */
-  justify-content: space-between; /* Espacio uniforme */
-  align-items: center; /* Centrado vertical */
-  height: 100%; /* Ocupa el 15% definido en App.css */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
   width: 100%;
-  background-color: var(--dark-olive); /* Fondo oscuro */
-  color: var(--off-white); /* Letras claras */
-  padding: 0 1rem; /* Espacio lateral */
+  background-color: var(--dark-olive);
+  color: var(--off-white);
+  padding: 1rem;
 }
 
 .header-date {
-  flex: 1; /* 33.33% del ancho */
   text-align: left;
   display: flex;
-  flex-direction: column; /* Día arriba, fecha abajo */
-  font-size: 0.9rem; /* Fuente más chica */
+  flex-direction: column;
+  font-size: 0.9rem;
+  width: 33.33%;
 }
 
 .header-day {
-  text-transform: capitalize; /* Primera letra en mayúscula */
+  text-transform: capitalize;
+  font-weight: bolder;
+  font-size: larger;
 }
 
 .header-num {
@@ -27,35 +29,16 @@
 }
 
 .header-title {
-  flex: 1; /* 33.33% del ancho */
   text-align: center;
-  font-size: 2rem; /* Título más grande */
+  font-size: 2rem;
   margin: 0;
+  width: 33.33%;
 }
 
 .header-time {
-  flex: 1; /* 33.33% del ancho */
   text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  font-size: 1.2rem; /* Hora legible */
-}
-
-.header-time button {
-  background-color: var(--olive-green);
-  color: var(--off-white);
-  border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-}
-
-.header-time button:hover {
-  background-color: var(--earth-brown);
+  font-size: 1.2rem;
+  width: 33.33%;
 }
 
 /* Responsive */
@@ -69,15 +52,10 @@
   }
 
   .header-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .header-time {
     font-size: 1rem;
-  }
-
-  .header-time button {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.8rem;
   }
 }
