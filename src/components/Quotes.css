@@ -1,26 +1,26 @@
 /* src/components/Quotes.css */
 .quotes {
-  height: 100%; /* Ocupa el 20% de App.css */
+  height: 100%;
   width: 100%;
-  background-color: var(--panel-bg); /* #FFFFFF - Fondo blanco */
-  color: var(--text-primary); /* #1A1A1A - Texto principal */
+  background-color: var(--panel-bg);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  border-top: 1px solid var(--border); /* #E5E7EB - Borde superior */
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave arriba */
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
 }
 
 blockquote {
   text-align: center;
   margin: 0;
-  max-width: 80%; /* Limita el ancho para mejor legibilidad */
+  max-width: 80%;
 }
 
 blockquote p {
-  font-size: 1.25rem; /* Reduje de 1.4rem para minimalismo */
+  font-size: 1.25rem;
   font-style: italic;
   font-weight: 400;
   margin-bottom: 0.5rem;
@@ -29,12 +29,12 @@ blockquote p {
 blockquote cite {
   font-size: 1rem;
   font-style: normal;
-  color: var(--text-secondary); /* #6B7280 - Gris suave */
+  color: var(--text-secondary);
 }
 
 .quotes button {
-  background-color: var(--accent); /* #3B82F6 - Azul limpio */
-  color: var(--panel-bg); /* #FFFFFF - Contraste */
+  background-color: var(--border); /* #E5E7EB - Gris claro */
+  color: var(--text-primary); /* #1A1A1A - Contraste */
   border: none;
   border-radius: 50%;
   width: 2rem;
@@ -46,17 +46,17 @@ blockquote cite {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .quotes button:hover,
 .quotes button:focus {
-  background-color: var(--accent-hover); /* #2563EB - Azul más oscuro */
+  background-color: var(--text-secondary); /* #6B7280 - Gris más oscuro */
   transform: rotate(90deg);
 }
 
 .quotes button:focus {
-  outline: 2px solid var(--accent); /* #3B82F6 */
+  outline: 2px solid var(--text-primary); /* #1A1A1A */
   outline-offset: 2px;
 }
 
@@ -71,7 +71,7 @@ blockquote cite {
   }
 
   blockquote p {
-    font-size: 1.1rem; /* Ajustado de 1.2rem */
+    font-size: 1.1rem;
   }
 
   blockquote cite {
