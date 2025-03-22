@@ -4,11 +4,9 @@ import Header from "./components/Header";
 import HiitTimer from "./components/HiitTimer";
 import Pomodoro from "./components/Pomodoro";
 import Quotes from "./components/Quotes";
-import Charts from "./components/Charts";
 
 function App() {
   const [showHiit, setShowHiit] = useState(true);
-  const [showCharts, setShowCharts] = useState(false);
   const [exerciseTime, setExerciseTime] = useState(
     () => parseInt(localStorage.getItem("totalExercise")) || 0
   );
@@ -21,14 +19,27 @@ function App() {
     setStudyTime(parseInt(localStorage.getItem("totalStudy")) || 0);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("totalExercise", exerciseTime);
+    localStorage.setItem("totalStudy", studyTime);
+  }, [exerciseTime, studyTime]);
+
   return (
     <div className="app-container">
       <header>
         <Header />
       </header>
       <main>
+        <div className="timer-container">
+          {showHiit ? (
+            <HiitTimer onTimeUpdate={setExerciseTime} />
+          ) : (
+            <Pomodoro onTimeUpdate={setStudyTime} />
+          )}
+        </div>
         <div className="controls">
           <button
+            className="switch-timer-btn"
             onClick={() => setShowHiit(!showHiit)}
             aria-label={
               showHiit
@@ -38,23 +49,8 @@ function App() {
           >
             {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
           </button>
-          <button
-            onClick={() => setShowCharts(!showCharts)}
-            aria-label={showCharts ? "Ocultar totales" : "Ver totales"}
-          >
-            {showCharts ? "Ocultar totales" : "Ver totales"}
-          </button>
         </div>
-        {showHiit ? (
-          <HiitTimer onTimeUpdate={setExerciseTime} />
-        ) : (
-          <Pomodoro onTimeUpdate={setStudyTime} />
-        )}
-        {showCharts && (
-          <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
-        )}
       </main>
-
       <footer>
         <Quotes />
       </footer>
