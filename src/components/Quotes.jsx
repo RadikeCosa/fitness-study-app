@@ -1,6 +1,7 @@
+// src/components/Quotes.jsx
 import { useState } from "react";
 import "./Quotes.css";
-import quotes from "../data/quotes.json"; // Importamos el JSON
+import quotes from "../data/quotes.json";
 
 function Quotes() {
   const [currentQuote, setCurrentQuote] = useState(0);
