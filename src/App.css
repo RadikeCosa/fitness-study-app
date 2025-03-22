@@ -1,0 +1,38 @@
+/* src/App.css */
+.app-container {
+  height: 100vh; /* Ocupa el 100% de la ventana */
+  width: 100%; /* Ancho completo */
+  display: flex;
+  flex-direction: column; /* De arriba a abajo */
+}
+
+header {
+  height: 15%; /* 15% de la pantalla */
+  width: 100%;
+}
+
+main {
+  height: 70%; /* 70% de la pantalla */
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Controles y temporizador apilados */
+}
+
+footer {
+  height: 15%; /* 15% de la pantalla */
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Media query para móviles */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

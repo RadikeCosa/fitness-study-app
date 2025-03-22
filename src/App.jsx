@@ -22,44 +22,43 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="app-container">
       <header>
         <Header />
       </header>
-      <div className="app-container">
-        <main>
-          <div className="controls">
-            <button
-              onClick={() => setShowHiit(!showHiit)}
-              aria-label={
-                showHiit
-                  ? "Cambiar al temporizador de estudio (Pomodoro)"
-                  : "Cambiar al temporizador de ejercicio (HIIT)"
-              }
-            >
-              {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
-            </button>
-            <button
-              onClick={() => setShowCharts(!showCharts)}
-              aria-label={showCharts ? "Ocultar totales" : "Ver totales"}
-            >
-              {showCharts ? "Ocultar totales" : "Ver totales"}
-            </button>
-          </div>
-          {showHiit ? (
-            <HiitTimer onTimeUpdate={setExerciseTime} />
-          ) : (
-            <Pomodoro onTimeUpdate={setStudyTime} />
-          )}
-          {showCharts && (
-            <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
-          )}
-        </main>
-      </div>
+      <main>
+        <div className="controls">
+          <button
+            onClick={() => setShowHiit(!showHiit)}
+            aria-label={
+              showHiit
+                ? "Cambiar al temporizador de estudio (Pomodoro)"
+                : "Cambiar al temporizador de ejercicio (HIIT)"
+            }
+          >
+            {showHiit ? "Ir a Estudiar" : "Ir a Ejercicio"}
+          </button>
+          <button
+            onClick={() => setShowCharts(!showCharts)}
+            aria-label={showCharts ? "Ocultar totales" : "Ver totales"}
+          >
+            {showCharts ? "Ocultar totales" : "Ver totales"}
+          </button>
+        </div>
+        {showHiit ? (
+          <HiitTimer onTimeUpdate={setExerciseTime} />
+        ) : (
+          <Pomodoro onTimeUpdate={setStudyTime} />
+        )}
+        {showCharts && (
+          <Charts exerciseTime={exerciseTime} studyTime={studyTime} />
+        )}
+      </main>
+
       <footer>
         <Quotes />
       </footer>
-    </>
+    </div>
   );
 }
 

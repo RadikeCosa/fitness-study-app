@@ -1,0 +1,26 @@
+/* src/index.css */
+* {
+  box-sizing: border-box; /* Padding y border dentro del tamaño */
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%; /* Aseguramos que el body ocupe el 100% */
+  overflow-x: hidden; /* Evitamos scroll horizontal */
+}
+
+#root {
+  height: 100%; /* El div raíz de React también debe ser 100% */
+}
+
+/* Variables CSS */
+:root {
+  --olive-green: #4a7043; /* Verde militar */
+  --dark-olive: #3a4a2e; /* Verde más oscuro */
+  --earth-brown: #8b5523; /* Marrón tierra */
+  --camo-gray: #6b7280; /* Gris camuflado */
+  --off-white: #f5f5f5; /* Blanco suave */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
