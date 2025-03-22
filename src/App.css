@@ -4,21 +4,24 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--dark-olive);
-  color: var(--off-white);
+  background-color: var(--base-bg); /* #F7F7F8 - Fondo claro */
+  color: var(--text-primary); /* #1A1A1A - Texto principal */
 }
 
 header {
-  height: 20%;
+  min-height: 20%; /* Cambié a min-height para flexibilidad */
   width: 100%;
+  box-sizing: border-box;
 }
 
 main {
-  height: 60%;
+  min-height: 60%;
   width: 100%;
+  box-sizing: border-box;
 }
 
 footer {
-  height: 15%;
+  min-height: 20%; /* Corregí de 15% a 20% para sumar 100% */
   width: 100%;
+  box-sizing: border-box;
 }

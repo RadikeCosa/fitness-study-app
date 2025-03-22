@@ -1,7 +1,15 @@
+// src/components/Header.jsx
+import { useState, useEffect } from "react";
 import "./Header.css";
 
 function Header() {
-  const date = new Date();
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setDate(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const formattedDateDay = date.toLocaleDateString("es-ES", {
     weekday: "long",
   });
@@ -10,7 +18,7 @@ function Header() {
     month: "2-digit",
     year: "numeric",
   });
-  const dateISO = date.toISOString().split("T")[0]; // Para datetime
+  const dateISO = date.toISOString().split("T")[0];
   const formattedTime = date.toLocaleTimeString("es-ES", {
     hour: "2-digit",
     minute: "2-digit",
