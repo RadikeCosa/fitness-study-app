@@ -1,38 +1,77 @@
 /* src/App.css */
 .app-container {
-  height: 100vh; /* Ocupa el 100% de la ventana */
-  width: 100%; /* Ancho completo */
+  height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column; /* De arriba a abajo */
+  flex-direction: column;
+  background-color: var(
+    --dark-olive
+  ); /* Fondo oscuro coherente con header/footer */
+  color: var(--off-white); /* Texto claro en todo el contenedor */
 }
 
 header {
-  height: 15%; /* 15% de la pantalla */
+  height: 15%;
   width: 100%;
 }
 
 main {
-  height: 70%; /* 70% de la pantalla */
+  height: 70%;
   width: 100%;
   display: flex;
-  flex-direction: column; /* Controles y temporizador apilados */
+  flex-direction: column;
+  align-items: center;
 }
 
 footer {
-  height: 15%; /* 15% de la pantalla */
+  height: 15%;
   width: 100%;
 }
 
-.controls {
+.timer-container {
+  flex: 1;
+  width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
 }
 
-/* Media query para móviles */
+.controls {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.switch-timer-btn {
+  background-color: var(--camo-gray); /* Gris oscuro para contraste */
+  color: #e0e0e0; /* Texto claro, un poco más gris que --off-white */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.switch-timer-btn:hover,
+.switch-timer-btn:focus {
+  background-color: var(--earth-brown);
+}
+
+.switch-timer-btn:focus {
+  outline: 2px solid #e0e0e0;
+  outline-offset: 2px;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .controls {
-    flex-direction: column;
-    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .switch-timer-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
