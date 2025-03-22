@@ -1,11 +1,10 @@
 // src/components/ExerciseTimer.jsx
 import { useState, useEffect } from "react";
 import "./ExerciseTimer.css";
-import useExerciseTime from "../hooks/useExerciseTimer";
-
+import useExerciseTime from "../hooks/useExerciseTime";
 function ExerciseTimer() {
   const [isRunning, setIsRunning] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0); // Tiempo en segundos
+  const [elapsedTime, setElapsedTime] = useState(0);
   const { totalSessionTime, totalDailyTime, totalWeeklyTime, logSessionTime } =
     useExerciseTime();
 
@@ -26,8 +25,8 @@ function ExerciseTimer() {
   const handleStop = () => {
     if (isRunning) setIsRunning(false);
     if (elapsedTime > 0) {
-      logSessionTime(elapsedTime); // Registra el tiempo en localStorage
-      setElapsedTime(0); // Reinicia el cronómetro
+      logSessionTime(elapsedTime); // Registra el tiempo
+      setElapsedTime(0); // Reinicia
     }
   };
 
@@ -39,9 +38,12 @@ function ExerciseTimer() {
     return `${mins}:${secs}`;
   };
 
+  // Mostrar elapsedTime mientras corre, totalSessionTime cuando está parado
+  const sessionDisplayTime = isRunning ? elapsedTime : totalSessionTime;
+
   return (
     <section className="exercise-timer" aria-label="Temporizador de ejercicio">
-      <h2 className="visually-hidden">Temporizador de Ejercicio</h2>
+      <h2>Hacer ejercicio</h2>
       <time className="timer-display" dateTime={`PT${elapsedTime}S`}>
         {formatTime(elapsedTime)}
       </time>
@@ -64,7 +66,7 @@ function ExerciseTimer() {
       </div>
       <dl className="time-stats">
         <dt>Sesión actual:</dt>
-        <dd>{formatTime(totalSessionTime)}</dd>
+        <dd>{formatTime(sessionDisplayTime)}</dd>
         <dt>Hoy:</dt>
         <dd>{formatTime(totalDailyTime)}</dd>
         <dt>Últimos 7 días:</dt>

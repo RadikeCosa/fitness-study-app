@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 
 function useExerciseTime() {
-  const [totalSessionTime, setTotalSessionTime] = useState(0);
-  const [totalDailyTime, setTotalDailyTime] = useState(0);
-  const [totalWeeklyTime, setTotalWeeklyTime] = useState(0);
+  const [totalSessionTime, setTotalSessionTime] = useState(0); // Última sesión
+  const [totalDailyTime, setTotalDailyTime] = useState(0); // Total del día
+  const [totalWeeklyTime, setTotalWeeklyTime] = useState(0); // Últimos 7 días
 
   useEffect(() => {
     const loadTimes = () => {
@@ -33,7 +33,7 @@ function useExerciseTime() {
     const newDaily = currentDaily + seconds;
 
     localStorage.setItem(todayKey, newDaily);
-    setTotalSessionTime((prev) => prev + seconds);
+    setTotalSessionTime(seconds); // Solo la última sesión
     setTotalDailyTime(newDaily);
 
     let weekly = 0;

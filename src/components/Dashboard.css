@@ -1,26 +1,27 @@
 /* src/components/Dashboard.css */
 .dashboard {
   width: 100%;
-  height: 100%; /* Usa todo el alto disponible del main */
+  height: 100%;
   display: flex;
   flex-direction: row;
 }
 
-.stats-area {
-  width: 50%;
-  height: 100%; /* Ocupa todo el alto */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .timer-area {
   width: 50%;
-  height: 100%; /* Ocupa todo el alto */
+  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+}
+
+.stats-area {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .placeholder {
@@ -33,18 +34,45 @@
   opacity: 0.8;
 }
 
+.switch-timer-btn {
+  background-color: var(--camo-gray);
+  color: #e0e0e0;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.switch-timer-btn:hover,
+.switch-timer-btn:focus {
+  background-color: var(--earth-brown);
+}
+
+.switch-timer-btn:focus {
+  outline: 2px solid #e0e0e0;
+  outline-offset: 2px;
+}
+
 @media (max-width: 600px) {
   .dashboard {
     flex-direction: column;
   }
 
-  .stats-area,
-  .timer-area {
+  .timer-area,
+  .stats-area {
     width: 100%;
-    height: 50%; /* Divide el alto en móviles */
+    height: 50%;
   }
 
   .timer-area {
     padding: 0.5rem;
+  }
+
+  .switch-timer-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 }

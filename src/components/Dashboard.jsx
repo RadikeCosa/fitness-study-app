@@ -1,22 +1,34 @@
 // src/components/Dashboard.jsx
+import { useState } from "react";
 import "./Dashboard.css";
 import ExerciseTimer from "./ExerciseTimer";
+import ExerciseStats from "./ExerciseStats";
 
 function Dashboard() {
+  const [showExercise, setShowExercise] = useState(true);
+
   return (
     <div className="dashboard">
-      <div className="stats-area">
-        <div className="placeholder">Área de Estadísticas</div>
-      </div>
       <div className="timer-area">
-        <ExerciseTimer />
+        {showExercise ? (
+          <ExerciseTimer />
+        ) : (
+          <div className="placeholder">Área del Temporizador de Estudio</div>
+        )}
         <button
           className="switch-timer-btn"
-          aria-label="Cambiar temporizador"
-          disabled
+          onClick={() => setShowExercise(!showExercise)}
+          aria-label={
+            showExercise
+              ? "Cambiar a temporizador de estudio"
+              : "Cambiar a temporizador de ejercicio"
+          }
         >
-          Cambiar Temporizador
+          {showExercise ? "Ir a Estudiar" : "Ir a Ejercicio"}
         </button>
+      </div>
+      <div className="stats-area">
+        <ExerciseStats />
       </div>
     </div>
   );
