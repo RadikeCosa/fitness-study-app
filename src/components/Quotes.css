@@ -17,15 +17,15 @@ blockquote {
 }
 
 blockquote p {
-  font-size: 1.4rem; /* Cita más grande */
+  font-size: 1.4rem;
   font-style: italic;
   margin-bottom: 0.5rem;
 }
 
 blockquote cite {
-  font-size: 1rem; /* Autor más chico */
+  font-size: 1rem;
   font-style: normal;
-  color: var(--camo-gray); /* Color diferente para contraste */
+  color: var(--camo-gray);
 }
 
 .quotes button {
@@ -38,7 +38,11 @@ blockquote cite {
   font-size: 1.2rem;
   cursor: pointer;
   margin-top: 0.5rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex; /* Centramos el ícono */
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Mantenemos transición */
+  transform-origin: center; /* Rotación desde el centro */
 }
 
 .quotes button:hover,
@@ -48,7 +52,7 @@ blockquote cite {
 }
 
 .quotes button:focus {
-  outline: 2px solid var(--off-white); /* Indicador de foco visible */
+  outline: 2px solid var(--off-white);
   outline-offset: 2px;
 }
 
