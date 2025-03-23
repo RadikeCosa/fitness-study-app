@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 import "./ExerciseLog.css";
 
 function ExerciseLog() {
-  const [time, setTime] = useState(0); // Segundos totales
+  const [time, setTime] = useState(0); // Segundos totales del cronómetro
   const [isRunning, setIsRunning] = useState(false);
   const [manualDate, setManualDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-  const [manualMinutes, setManualMinutes] = useState("");
+  const [manualMinutes, setManualMinutes] = useState(0); // Valor inicial del slider
 
   // Cronómetro
   useEffect(() => {
@@ -41,7 +41,7 @@ function ExerciseLog() {
     return options;
   };
 
-  // Formatear tiempo
+  // Formatear tiempo del cronómetro
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -50,7 +50,7 @@ function ExerciseLog() {
       .padStart(2, "0")}`;
   };
 
-  // Guardar en localStorage
+  // Guardar cronómetro en localStorage
   const saveTime = () => {
     const logs = JSON.parse(localStorage.getItem("exerciseLogs") || "{}");
     const today = new Date().toISOString().split("T")[0];
@@ -60,13 +60,14 @@ function ExerciseLog() {
     setIsRunning(false);
   };
 
+  // Guardar registro manual
   const saveManual = (e) => {
     e.preventDefault();
-    if (!manualMinutes || manualMinutes <= 0) return;
+    if (manualMinutes <= 0) return; // Evita guardar 0
     const logs = JSON.parse(localStorage.getItem("exerciseLogs") || "{}");
     logs[manualDate] = (logs[manualDate] || 0) + parseInt(manualMinutes);
     localStorage.setItem("exerciseLogs", JSON.stringify(logs));
-    setManualMinutes("");
+    setManualMinutes(0); // Resetea el slider
   };
 
   return (
@@ -107,7 +108,7 @@ function ExerciseLog() {
         </div>
       </section>
 
-      {/* Registro manual */}
+      {/* Registro manual con slider */}
       <form className="manual-log" onSubmit={saveManual}>
         <label htmlFor="manual-date">Fecha:</label>
         <select
@@ -117,15 +118,17 @@ function ExerciseLog() {
         >
           {getDateOptions()}
         </select>
-        <label htmlFor="manual-minutes">Minutos:</label>
+        <label htmlFor="manual-minutes">
+          Minutos: <span>{manualMinutes}</span>
+        </label>
         <input
           id="manual-minutes"
-          type="number"
-          min="1"
+          type="range"
+          min="0"
+          max="100"
           value={manualMinutes}
           onChange={(e) => setManualMinutes(e.target.value)}
-          placeholder="Ej. 30"
-          required
+          aria-label={`Seleccionar ${manualMinutes} minutos de ejercicio`}
         />
         <button type="submit" aria-label="Guardar registro manual">
           Guardar
