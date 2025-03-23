@@ -1,7 +1,8 @@
-// src/components/Dashboard.jsx
+// src/components/layout/Dashboard.jsx
 import React from "react";
 import ExerciseLog from "../exercise/ExerciseLog";
 import StatsDisplay from "../stats/StatsDisplay";
+import Quotes from "../Quotes";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -11,6 +12,7 @@ function Dashboard() {
         <ExerciseLog />
         <StatsDisplay />
       </div>
+      <Quotes />
     </section>
   );
 }

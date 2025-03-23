@@ -1,0 +1,32 @@
+/* src/components/exercise/Stopwatch.css */
+.stopwatch {
+  padding: 1rem;
+}
+
+.stopwatch output {
+  display: block;
+  font-size: 2rem;
+  font-family: monospace;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.stopwatch-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.stopwatch-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #000;
+}
+
+.stopwatch-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

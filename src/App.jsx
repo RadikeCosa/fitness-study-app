@@ -12,9 +12,6 @@ function App() {
       <main>
         <Dashboard />
       </main>
-      <footer>
-        <Quotes />
-      </footer>
     </div>
   );
 }

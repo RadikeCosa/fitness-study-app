@@ -1,4 +1,4 @@
-/* src/components/ExerciseLog.css */
+/* src/components/exercise/ExerciseLog.css */
 .exercise-log {
   padding: 1rem;
 }
@@ -6,62 +6,6 @@
 .exercise-log h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-}
-
-.stopwatch {
-  margin-bottom: 1.5rem;
-}
-
-.stopwatch output {
-  display: block;
-  font-size: 2rem;
-  font-family: monospace;
-  margin-bottom: 0.5rem;
-}
-
-.stopwatch-controls {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.stopwatch-controls button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.stopwatch-controls button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.manual-log {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.manual-log label {
-  font-weight: bold;
-}
-
-.manual-log label span {
-  font-weight: normal;
-  margin-left: 0.5rem;
-}
-
-.manual-log select {
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-.manual-log input[type="range"] {
-  width: 100%;
-  margin: 0.5rem 0;
-}
-
-.manual-log button {
-  padding: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
+  color: #000;
+  font-weight: 500;
 }

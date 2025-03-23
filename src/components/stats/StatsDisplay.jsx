@@ -1,20 +1,12 @@
-// src/components/StatsDisplay.jsx
-import React, { useState, useEffect, useRef } from "react";
+// src/components/stats/StatsDisplay.jsx
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import "./StatsDisplay.css";
 
 function StatsDisplay() {
-  const [logs, setLogs] = useState({});
+  const [logs] = useLocalStorage("exerciseLogs", {});
   const chartRef = useRef(null);
-
-  useEffect(() => {
-    const updateLogs = () => {
-      setLogs(JSON.parse(localStorage.getItem("exerciseLogs") || "{}"));
-    };
-    updateLogs();
-    window.addEventListener("storage", updateLogs);
-    return () => window.removeEventListener("storage", updateLogs);
-  }, []);
 
   const getLast7Days = () => {
     const days = [];
@@ -57,11 +49,13 @@ function StatsDisplay() {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Eje X con las fechas exactas de data
     const x = d3
       .scaleBand()
       .domain(data.map((d) => d.date))
       .range([0, width])
       .padding(0.1);
+
     const y = d3
       .scaleLinear()
       .domain([
@@ -73,20 +67,17 @@ function StatsDisplay() {
       ])
       .range([height, 0]);
 
-    // Ejes
     svg
       .append("g")
       .attr("class", "axis")
       .attr("transform", `translate(0,${height})`)
       .call(
-        d3
-          .axisBottom(x)
-          .tickFormat((d) =>
-            new Date(d).toLocaleDateString("es-ES", {
-              weekday: "short",
-              day: "numeric",
-            })
-          )
+        d3.axisBottom(x).tickFormat((d) =>
+          new Date(d).toLocaleDateString("es-ES", {
+            weekday: "short",
+            day: "numeric",
+          })
+        )
       );
 
     svg
@@ -99,7 +90,6 @@ function StatsDisplay() {
           .tickFormat((d) => `${d}`)
       );
 
-    // Línea
     const line = d3
       .line()
       .x((d) => x(d.date) + x.bandwidth() / 2)
@@ -114,7 +104,6 @@ function StatsDisplay() {
       .attr("stroke-width", 1.5)
       .attr("d", line);
 
-    // Puntos
     svg
       .selectAll(".dot")
       .data(data)
@@ -126,7 +115,6 @@ function StatsDisplay() {
       .attr("r", 3)
       .attr("fill", "#000");
 
-    // Leyenda
     svg
       .append("text")
       .attr("x", width / 2)
@@ -134,7 +122,7 @@ function StatsDisplay() {
       .attr("text-anchor", "middle")
       .attr("class", "legend")
       .text("Ejercicio diario (min)");
-  }, [logs, data]);
+  }, [logs]);
 
   return (
     <article
