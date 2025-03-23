@@ -1,43 +1,18 @@
 /* src/components/Dashboard.css */
 .dashboard {
-  width: 100%;
-  height: 100vh; /* Todo el alto disponible */
-  display: flex;
-  flex-direction: row;
-  background-color: var(--base-bg); /* #F7F7F8 */
-}
-
-.exercise-log-section,
-.stats-display-section {
-  width: 50%; /* Reparten el ancho equitativamente */
-  height: 100%; /* Usan todo el alto */
   padding: 1rem;
-  box-sizing: border-box;
 }
 
-.exercise-log-section {
-  background-color: var(--panel-bg); /* #FFFFFF */
-  border-right: 1px solid var(--border); /* #E5E7EB - Separación sutil */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Izquierda: ExerciseLog, Derecha: Stats */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.stats-display-section {
-  background-color: var(--panel-bg); /* #FFFFFF */
-}
-
-@media (max-width: 600px) {
-  .dashboard {
-    flex-direction: column;
-  }
-
-  .exercise-log-section,
-  .stats-display-section {
-    width: 100%;
-    height: 50%; /* En móviles, se apilan y reparten el alto */
-    border-right: none;
-    border-bottom: 1px solid var(--border); /* Separación vertical */
-  }
-
-  .stats-display-section {
-    border-bottom: none; /* Último no necesita borde */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr; /* Apila en móviles */
   }
 }

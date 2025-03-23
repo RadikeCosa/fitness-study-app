@@ -1,18 +1,17 @@
 // src/components/Dashboard.jsx
-import "./Dashboard.css";
+import React from "react";
 import ExerciseLog from "./ExerciseLog";
 import StatsDisplay from "./StatsDisplay";
+import "./Dashboard.css";
 
 function Dashboard() {
   return (
-    <div className="dashboard">
-      <div className="exercise-log-section">
+    <section className="dashboard" aria-label="Panel de entrenamiento">
+      <div className="dashboard-container">
         <ExerciseLog />
-      </div>
-      <div className="stats-display-section">
         <StatsDisplay />
       </div>
-    </div>
+    </section>
   );
 }
 

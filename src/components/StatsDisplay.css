@@ -1,21 +1,28 @@
 /* src/components/StatsDisplay.css */
 .stats-display {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--text-primary); /* #1A1A1A */
+  padding: 1rem;
 }
 
 .stats-display h2 {
   font-size: 1.5rem;
-  font-weight: 500;
   margin-bottom: 1rem;
 }
 
+.stats-display ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.stats-display li {
+  margin-bottom: 0.5rem;
+}
+
+.stats-display time {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
 .stats-display p {
-  font-size: 1rem;
-  color: var(--text-secondary); /* #6B7280 */
+  margin: 0.5rem 0;
 }
