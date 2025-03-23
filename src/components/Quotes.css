@@ -1,6 +1,6 @@
 /* src/components/Quotes.css */
 .quotes {
-  height: 100%;
+  height: 90%;
   width: 100%;
   background-color: var(--panel-bg);
   color: var(--text-primary);

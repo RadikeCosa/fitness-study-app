@@ -7,7 +7,6 @@ function StatsDisplay() {
   const [logs, setLogs] = useState({});
   const chartRef = useRef(null);
 
-  // Actualizar logs desde localStorage
   useEffect(() => {
     const updateLogs = () => {
       setLogs(JSON.parse(localStorage.getItem("exerciseLogs") || "{}"));
@@ -17,7 +16,6 @@ function StatsDisplay() {
     return () => window.removeEventListener("storage", updateLogs);
   }, []);
 
-  // Función para obtener los últimos 7 días
   const getLast7Days = () => {
     const days = [];
     for (let i = 0; i < 7; i++) {
@@ -26,10 +24,9 @@ function StatsDisplay() {
       const key = date.toISOString().split("T")[0];
       days.push({ date: key, minutes: logs[key] || 0 });
     }
-    return days.reverse(); // De más viejo a más nuevo
+    return days.reverse();
   };
 
-  // Datos y estadísticas
   const data = getLast7Days();
   const totalMinutes = data.reduce((sum, { minutes }) => sum + minutes, 0);
   const averageMinutes = totalMinutes / 7 || 0;
@@ -44,7 +41,6 @@ function StatsDisplay() {
   const trend =
     totalMinutes > averageMinutes * 7 ? "positiva" : "negativa o estable";
 
-  // Gráfico D3.js
   useEffect(() => {
     if (!chartRef.current) return;
 
@@ -52,7 +48,6 @@ function StatsDisplay() {
     const width = 320 - margin.left - margin.right;
     const height = 160 - margin.top - margin.bottom;
 
-    // Limpiar SVG anterior
     d3.select(chartRef.current).selectAll("*").remove();
 
     const svg = d3
@@ -67,7 +62,6 @@ function StatsDisplay() {
       .domain(data.map((d) => d.date))
       .range([0, width])
       .padding(0.1);
-
     const y = d3
       .scaleLinear()
       .domain([
@@ -79,9 +73,10 @@ function StatsDisplay() {
       ])
       .range([height, 0]);
 
-    // Eje X
+    // Ejes
     svg
       .append("g")
+      .attr("class", "axis")
       .attr("transform", `translate(0,${height})`)
       .call(
         d3
@@ -94,15 +89,17 @@ function StatsDisplay() {
           )
       );
 
-    // Eje Y
-    svg.append("g").call(
-      d3
-        .axisLeft(y)
-        .ticks(5)
-        .tickFormat((d) => `${d} min`)
-    );
+    svg
+      .append("g")
+      .attr("class", "axis")
+      .call(
+        d3
+          .axisLeft(y)
+          .ticks(5)
+          .tickFormat((d) => `${d}`)
+      );
 
-    // Línea suavizada
+    // Línea
     const line = d3
       .line()
       .x((d) => x(d.date) + x.bandwidth() / 2)
@@ -113,9 +110,21 @@ function StatsDisplay() {
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#007bff")
-      .attr("stroke-width", 2)
+      .attr("stroke", "#000")
+      .attr("stroke-width", 1.5)
       .attr("d", line);
+
+    // Puntos
+    svg
+      .selectAll(".dot")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("class", "dot")
+      .attr("cx", (d) => x(d.date) + x.bandwidth() / 2)
+      .attr("cy", (d) => y(d.minutes))
+      .attr("r", 3)
+      .attr("fill", "#000");
 
     // Leyenda
     svg
@@ -123,9 +132,9 @@ function StatsDisplay() {
       .attr("x", width / 2)
       .attr("y", height + margin.bottom - 5)
       .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .text("Minutos de ejercicio por día");
-  }, [logs, data]); // Dependencia en logs y data
+      .attr("class", "legend")
+      .text("Ejercicio diario (min)");
+  }, [logs, data]);
 
   return (
     <article
@@ -134,42 +143,48 @@ function StatsDisplay() {
     >
       <h2>Estadísticas</h2>
       <div className="stats-container">
-        {/* Gráfico */}
         <section
           className="stats-chart"
           aria-label="Gráfico de entrenamientos diarios"
         >
           <svg ref={chartRef}></svg>
         </section>
-
-        {/* Valores */}
         <section className="stats-values">
-          <div className="stats-row">
-            <p>Total semanal: {totalMinutes} min</p>
-            <p>Promedio diario: {averageMinutes.toFixed(1)} min</p>
-          </div>
-          <div className="stats-row">
-            <p>
-              Día con más tiempo:{" "}
-              {maxDay.minutes > 0
-                ? `${new Date(maxDay.date).toLocaleDateString("es-ES", {
-                    day: "numeric",
-                    month: "short",
-                  })} (${maxDay.minutes} min)`
-                : "Ninguno"}
-            </p>
-            <p>
-              Día con menos tiempo:{" "}
-              {minDay.minutes > 0
-                ? `${new Date(minDay.date).toLocaleDateString("es-ES", {
-                    day: "numeric",
-                    month: "short",
-                  })} (${minDay.minutes} min)`
-                : "Ninguno"}
-            </p>
-          </div>
-          <div className="stats-row">
-            <p>Tendencia semanal: {trend}</p>
+          <div className="stats-grid">
+            <div className="stat-item">
+              <span className="stat-value">{totalMinutes}</span>
+              <span className="stat-label">Total semanal (min)</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">{averageMinutes.toFixed(1)}</span>
+              <span className="stat-label">Promedio diario (min)</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">
+                {maxDay.minutes > 0
+                  ? `${new Date(maxDay.date).toLocaleDateString("es-ES", {
+                      day: "numeric",
+                      month: "short",
+                    })} (${maxDay.minutes})`
+                  : "Ninguno"}
+              </span>
+              <span className="stat-label">Día más activo</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">
+                {minDay.minutes > 0
+                  ? `${new Date(minDay.date).toLocaleDateString("es-ES", {
+                      day: "numeric",
+                      month: "short",
+                    })} (${minDay.minutes})`
+                  : "Ninguno"}
+              </span>
+              <span className="stat-label">Día menos activo</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">{trend}</span>
+              <span className="stat-label">Tendencia</span>
+            </div>
           </div>
         </section>
       </div>

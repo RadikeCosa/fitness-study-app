@@ -9,19 +9,19 @@
 }
 
 header {
-  min-height: 20%; /* Cambié a min-height para flexibilidad */
+  min-height: 15%; /* Cambié a min-height para flexibilidad */
   width: 100%;
   box-sizing: border-box;
 }
 
 main {
-  min-height: 60%;
+  min-height: 70%;
   width: 100%;
   box-sizing: border-box;
 }
 
 footer {
-  min-height: 20%; /* Corregí de 15% a 20% para sumar 100% */
+  min-height: 15%; /* Corregí de 15% a 20% para sumar 100% */
   width: 100%;
   box-sizing: border-box;
 }
