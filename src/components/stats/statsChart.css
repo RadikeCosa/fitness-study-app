@@ -1,0 +1,31 @@
+/* src/components/stats/StatsChart.css */
+.stats-chart {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-chart svg {
+  width: 100%;
+  max-width: 360px;
+}
+
+.axis line,
+.axis path {
+  stroke: #666;
+}
+
+.axis text {
+  fill: #333;
+  font-size: 12px;
+}
+
+.legend {
+  fill: #333;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.dot {
+  fill: #000;
+}
