@@ -1,7 +1,7 @@
 // src/components/Dashboard.jsx
 import React from "react";
-import ExerciseLog from "./ExerciseLog";
-import StatsDisplay from "./StatsDisplay";
+import ExerciseLog from "../exercise/ExerciseLog";
+import StatsDisplay from "../stats/StatsDisplay";
 import "./Dashboard.css";
 
 function Dashboard() {
