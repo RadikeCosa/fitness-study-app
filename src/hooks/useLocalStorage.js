@@ -2,33 +2,25 @@
 import { useState, useEffect } from "react";
 
 function useLocalStorage(key, initialValue) {
+  // Inicializar el estado con lo que haya en localStorage o el valor inicial
   const [value, setValue] = useState(() => {
-    return JSON.parse(
-      localStorage.getItem(key) || JSON.stringify(initialValue)
-    );
+    try {
+      const storedValue = localStorage.getItem(key);
+      return storedValue !== null ? JSON.parse(storedValue) : initialValue;
+    } catch (error) {
+      console.error("Error al leer localStorage:", error);
+      return initialValue;
+    }
   });
 
+  // Guardar en localStorage cada vez que 'value' cambie
   useEffect(() => {
-    const handleStorageChange = () => {
-      setValue(
-        JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
-      );
-    };
-    window.addEventListener("storage", handleStorageChange);
-    // Escucha cambios manuales en la misma pestaña
-    const checkStorage = () => {
-      const newValue = JSON.parse(
-        localStorage.getItem(key) || JSON.stringify(initialValue)
-      );
-      if (JSON.stringify(newValue) !== JSON.stringify(value)) {
-        setValue(newValue);
-      }
-    };
-    const interval = setInterval(checkStorage, 500); // Revisar cada 0.5s
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      clearInterval(interval);
-    };
+    try {
+      console.log("useLocalStorage - Guardando en localStorage:", value);
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error("Error al guardar en localStorage:", error);
+    }
   }, [key, value]);
 
   return [value, setValue];

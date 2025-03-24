@@ -6,6 +6,7 @@ export function useExerciseStats(logs = {}) {
     const days = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date();
+      date.setUTCHours(0, 0, 0, 0); // Normalizar a medianoche UTC
       date.setDate(date.getDate() - i);
       const key = date.toISOString().split("T")[0];
       days.push({ date: key, minutes: logs[key] || 0 });

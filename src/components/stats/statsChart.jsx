@@ -4,7 +4,7 @@ import * as d3 from "d3";
 import { useExerciseStats } from "../../hooks/useExerciseStats";
 import "./StatsChart.css";
 
-function StatsChart({ logs = {} }) {
+function StatsChart({ logs = {}, resetLogs }) {
   const chartRef = useRef(null);
   const { data } = useExerciseStats(logs);
 
@@ -15,6 +15,7 @@ function StatsChart({ logs = {} }) {
     const width = 320 - margin.left - margin.right;
     const height = 160 - margin.top - margin.bottom;
 
+    // Limpiar el SVG antes de renderizar
     d3.select(chartRef.current).selectAll("*").remove();
 
     const svg = d3
@@ -24,11 +25,14 @@ function StatsChart({ logs = {} }) {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Escala X: Usar las fechas exactas de 'data'
     const x = d3
       .scaleBand()
       .domain(data.map((d) => d.date))
       .range([0, width])
       .padding(0.1);
+
+    // Escala Y: Igual que antes
     const y = d3
       .scaleLinear()
       .domain([
@@ -40,16 +44,21 @@ function StatsChart({ logs = {} }) {
       ])
       .range([height, 0]);
 
+    // Eje X: Mostrar días de la semana correctamente alineados
     svg
       .append("g")
       .attr("class", "axis")
       .attr("transform", `translate(0,${height})`)
       .call(
-        d3.axisBottom(x).tickFormat(
-          (d) => new Date(d).toLocaleDateString("es-ES", { weekday: "short" }) // Solo nombre del día
-        )
+        d3.axisBottom(x).tickFormat((d) => {
+          const date = new Date(d);
+          // Ajustar por zona horaria para que coincida con la fecha ISO
+          date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+          return date.toLocaleDateString("es-ES", { weekday: "short" });
+        })
       );
 
+    // Eje Y: Sin cambios
     svg
       .append("g")
       .attr("class", "axis")
@@ -60,6 +69,7 @@ function StatsChart({ logs = {} }) {
           .tickFormat((d) => `${d}`)
       );
 
+    // Línea: Sin cambios
     const line = d3
       .line()
       .x((d) => x(d.date) + x.bandwidth() / 2)
@@ -74,6 +84,7 @@ function StatsChart({ logs = {} }) {
       .attr("stroke-width", 1.5)
       .attr("d", line);
 
+    // Puntos: Sin cambios
     svg
       .selectAll(".dot")
       .data(data)
@@ -85,6 +96,7 @@ function StatsChart({ logs = {} }) {
       .attr("r", 3)
       .attr("fill", "#000");
 
+    // Leyenda: Sin cambios
     svg
       .append("text")
       .attr("x", width / 2)
@@ -100,6 +112,13 @@ function StatsChart({ logs = {} }) {
       aria-label="Gráfico de entrenamientos diarios"
     >
       <svg ref={chartRef}></svg>
+      <button
+        type="button"
+        onClick={resetLogs}
+        aria-label="Reiniciar datos de entrenamientos"
+      >
+        Reiniciar Datos
+      </button>
     </section>
   );
 }

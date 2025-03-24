@@ -1,18 +1,16 @@
 // src/components/exercise/ManualLog.jsx
 import React, { useState } from "react";
-import useExerciseLogs from "../../hooks/useExerciseLogs";
 import "./ManualLog.css";
 
-function ManualLog() {
+function ManualLog({ saveLog }) {
   const [manualDate, setManualDate] = useState(
     new Date().toISOString().split("T")[0]
   );
   const [manualMinutes, setManualMinutes] = useState(0);
-  const { saveLog } = useExerciseLogs();
 
   const getDateOptions = () => {
     const options = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i <= 7; i++) {
       const date = new Date();
       date.setDate(date.getDate() - i);
       const value = date.toISOString().split("T")[0];
@@ -39,7 +37,6 @@ function ManualLog() {
 
   return (
     <form className="manual-log" onSubmit={handleSubmit}>
-      <h3>Registro de Actividad Fisica</h3>
       <div className="date-selector">
         <select
           id="manual-date"
@@ -51,7 +48,7 @@ function ManualLog() {
       </div>
       <div className="duration-input">
         <label htmlFor="manual-minutes">
-          Tiempo (minutos): <span>{manualMinutes}</span>
+          Minutos: <span>{manualMinutes}</span>
         </label>
         <input
           id="manual-minutes"
