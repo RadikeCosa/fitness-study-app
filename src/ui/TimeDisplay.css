@@ -3,6 +3,6 @@
   padding: calc(var(--spacing) / 2);
   background: var(--background);
 
-  font-size: var(--font-size-big-text);
+  font-size: var(--font-size-text);
   color: var(--secondary-color);
 }

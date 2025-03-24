@@ -1,34 +1,63 @@
+/* src/components/layout/Dashboard.css */
 .dashboard {
+  height: 100vh; /* Todo en una pantalla */
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto;
-  grid-gap: 1rem;
-  margin: 1rem;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columnas iguales */
+  grid-template-rows: 1fr 1fr 1fr; /* 3 filas iguales */
+  gap: var(--spacing); /* Espacio entre celdas */
+  padding: var(--spacing);
+  box-sizing: border-box;
+  grid-template-areas:
+    "title-time-date quotes-container quotes-container"
+    "manual-log-container stats-chart-container ."
+    ". . ."; /* Tercera fila vacía */
+}
+
+.title-time-date,
+.quotes-container,
+.manual-log-container,
+.stats-chart-container {
+  padding: var(--spacing);
+  border-bottom: 3px solid var(--secondary-color); /* Detalle distintivo */
+  border-radius: var(--border-radius);
+  box-shadow: var(--elevate-shadow);
+  background: var(--background);
   box-sizing: border-box;
 }
+
 .title-time-date {
+  grid-area: title-time-date;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  border-bottom: 3px solid var(--secondary-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--elevate-shadow);
-  box-sizing: border-box;
-  height: 100%;
 }
 
 .quotes-container {
-  border-bottom: 3px solid var(--secondary-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--elevate-shadow);
-  box-sizing: border-box;
+  grid-area: quotes-container;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.manual-log {
-  border-radius: var(--border-radius);
-  box-shadow: var(--elevate-shadow);
-  box-sizing: border-box;
+
+.manual-log-container {
+  grid-area: manual-log-container;
+}
+
+.stats-chart-container {
+  grid-area: stats-chart-container;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr; /* Apilar en móvil */
+    grid-template-rows: auto auto auto auto; /* 4 filas para los componentes actuales */
+    grid-template-areas:
+      "title-time-date"
+      "quotes-container"
+      "manual-log-container"
+      "stats-chart-container";
+  }
 }

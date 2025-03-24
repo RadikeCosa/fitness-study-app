@@ -6,6 +6,7 @@ import TimeDisplay from "../../ui/TimeDisplay"; // Path corregido
 import useLocalStorage from "../../hooks/useLocalStorage";
 import MainTitle from "../../ui/MainTitle";
 import ManualLog from "../exercise/ManualLog";
+import StatsChart from "../stats/StatsChart"; // Path corregido
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -22,6 +23,7 @@ function Dashboard() {
         <Quotes />
       </div>
       <ManualLog />
+      <StatsChart logs={logs} />
     </div>
   );
 }
