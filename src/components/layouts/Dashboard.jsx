@@ -15,26 +15,13 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <header className="dashboard-header">
-        <h1>Argestan</h1>
-        <div className="datetime">
-          <DateDisplay />
-          <TimeDisplay />
-        </div>
+      <header className="title-time-date">
+        <MainTitle name="Argestan" />
+        <DateDisplay />
+        <TimeDisplay />
       </header>
-      <div className="dashboard-content">
-        <section className="dashboard-exercise">
-          <ExerciseLog />
-        </section>
-        <section className="dashboard-chart">
-          <StatsChart logs={logs} />
-        </section>
-        <section className="dashboard-cards">
-          <StatsCards logs={logs} />
-        </section>
-        <section className="dashboard-quotes">
-          <Quotes />
-        </section>
+      <div className="quotes-container">
+        <Quotes />
       </div>
     </div>
   );

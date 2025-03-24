@@ -1,0 +1,8 @@
+blockquote p {
+  font-size: var(--font-size-text);
+}
+blockquote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

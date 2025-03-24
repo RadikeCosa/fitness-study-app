@@ -11,18 +11,10 @@ function Quotes() {
   };
 
   return (
-    <footer className="quotes">
-      <blockquote>
-        <p>{quotes[currentQuote].text}</p>
-        <cite>— {quotes[currentQuote].author}</cite>
-      </blockquote>
-      <button
-        onClick={handleNextQuote}
-        aria-label="Cambiar a la siguiente frase motivacional"
-      >
-        ↻
-      </button>
-    </footer>
+    <blockquote className="blockquote" onClick={handleNextQuote}>
+      <p>{quotes[currentQuote].text}</p>
+      <cite>— {quotes[currentQuote].author}</cite>
+    </blockquote>
   );
 }
 

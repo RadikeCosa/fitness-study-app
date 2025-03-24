@@ -1,0 +1,6 @@
+/* src/components/ui/MainTitle.css */
+.main-title {
+  font-size: var(--font-size-title);
+  color: var(--primary-color);
+  margin: 0; /* Eliminar márgenes por defecto */
+}

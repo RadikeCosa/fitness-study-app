@@ -1,0 +1,8 @@
+/* src/components/ui/TimeDisplay.css */
+.time-display {
+  padding: calc(var(--spacing) / 2);
+  background: var(--background);
+
+  font-size: var(--font-size-big-text);
+  color: var(--secondary-color);
+}

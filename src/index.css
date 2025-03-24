@@ -1,15 +1,19 @@
 /* src/index.css */
 :root {
-  --primary-color: #000;
-  --secondary-color: #333;
-  --text-muted: #666;
-  --border-color: #ddd;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --spacing: 1rem;
-  --font-size-title: 2.5rem;
-  --font-size-subtitle: 1.5rem;
-  --font-size-text: 1rem;
-  --font-size-small: 0.875rem;
+  --primary-color: #000; /* Texto principal */
+  --secondary-color: #333; /* Texto secundario */
+  --text-muted: #666; /* Texto atenuado */
+  --border-color: #ddd; /* Bordes */
+  --elevate-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra elevada */
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  --spacing: 1rem; /* Espaciado base */
+  --font-size-title: 3rem; /* Títulos grandes */
+  --font-size-subtitle: 2rem; /* Subtítulos */
+  --font-size-big-text: 1.8rem; /* Texto grande */
+  --font-size-text: 1.2rem; /* Texto normal */
+  --font-size-small: 0.875rem; /* Texto pequeño */
+  --border-radius: 4px; /* Bordes redondeados */
+  --background: #fff; /* Fondo general */
 }
 
 * {
@@ -20,7 +24,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #fff;
+  background: var(--background);
   color: var(--primary-color);
   line-height: 1.5;
 }
