@@ -11,28 +11,28 @@ function StatsChart({ logs = {}, resetLogs }) {
   useEffect(() => {
     if (!chartRef.current) return;
 
-    const margin = { top: 20, right: 20, bottom: 40, left: 40 };
-    const width = 320 - margin.left - margin.right;
-    const height = 160 - margin.top - margin.bottom;
+    // Dimensiones dinámicas
+    const container = chartRef.current.parentElement;
+    const margin = { top: 20, right: 20, bottom: 50, left: 40 }; // Más espacio en bottom para evitar superposición
+    const width = container.clientWidth - margin.left - margin.right;
+    const height = container.clientHeight * 0.8 - margin.top - margin.bottom; // 80% del espacio para el gráfico
 
-    // Limpiar el SVG antes de renderizar
-    d3.select(chartRef.current).selectAll("*").remove();
-
+    // Limpiar SVG
     const svg = d3
       .select(chartRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .html("")
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Escala X: Usar las fechas exactas de 'data'
+    // Escalas
     const x = d3
       .scaleBand()
       .domain(data.map((d) => d.date))
       .range([0, width])
-      .padding(0.1);
+      .padding(0.2); // Más padding para aire entre barras
 
-    // Escala Y: Igual que antes
     const y = d3
       .scaleLinear()
       .domain([
@@ -44,24 +44,22 @@ function StatsChart({ logs = {}, resetLogs }) {
       ])
       .range([height, 0]);
 
-    // Eje X: Mostrar días de la semana correctamente alineados
+    // Ejes
     svg
       .append("g")
-      .attr("class", "axis")
+      .attr("class", "x-axis")
       .attr("transform", `translate(0,${height})`)
       .call(
         d3.axisBottom(x).tickFormat((d) => {
           const date = new Date(d);
-          // Ajustar por zona horaria para que coincida con la fecha ISO
           date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
           return date.toLocaleDateString("es-ES", { weekday: "short" });
         })
       );
 
-    // Eje Y: Sin cambios
     svg
       .append("g")
-      .attr("class", "axis")
+      .attr("class", "y-axis")
       .call(
         d3
           .axisLeft(y)
@@ -69,23 +67,17 @@ function StatsChart({ logs = {}, resetLogs }) {
           .tickFormat((d) => `${d}`)
       );
 
-    // Línea: Sin cambios
+    // Línea
     const line = d3
       .line()
       .x((d) => x(d.date) + x.bandwidth() / 2)
       .y((d) => y(d.minutes))
       .curve(d3.curveMonotoneX);
 
-    svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#000")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
+    svg.append("path").datum(data).attr("class", "line").attr("d", line);
 
-    // Puntos: Sin cambios
-    svg
+    // Puntos
+    const dots = svg
       .selectAll(".dot")
       .data(data)
       .enter()
@@ -93,17 +85,42 @@ function StatsChart({ logs = {}, resetLogs }) {
       .attr("class", "dot")
       .attr("cx", (d) => x(d.date) + x.bandwidth() / 2)
       .attr("cy", (d) => y(d.minutes))
-      .attr("r", 3)
-      .attr("fill", "#000");
+      .attr("r", 4);
 
-    // Leyenda: Sin cambios
+    // Tooltip
+    const tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    dots
+      .on("mouseover", (event, d) => {
+        tooltip
+          .style("opacity", 1)
+          .html(
+            `${d.minutes} min<br>${new Date(d.date).toLocaleDateString(
+              "es-ES"
+            )}`
+          )
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY - 20}px`);
+      })
+      .on("mouseout", () => {
+        tooltip.style("opacity", 0);
+      });
+
+    // Leyenda fuera del eje X
     svg
       .append("text")
-      .attr("x", width / 2)
-      .attr("y", height + margin.bottom - 5)
-      .attr("text-anchor", "middle")
       .attr("class", "legend")
+      .attr("x", width / 2)
+      .attr("y", -10) // Movida arriba del gráfico
       .text("Ejercicio diario (min)");
+
+    return () => {
+      tooltip.remove();
+    };
   }, [data]);
 
   return (
