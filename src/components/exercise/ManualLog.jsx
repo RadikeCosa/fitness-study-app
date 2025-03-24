@@ -23,9 +23,7 @@ function ManualLog({ onSave }) {
         value={manualDate}
         onChange={(e) => setManualDate(e.target.value)}
       />
-      <label htmlFor="manual-minutes">
-        Minutos: <span>{manualMinutes}</span>
-      </label>
+
       <input
         id="manual-minutes"
         type="range"

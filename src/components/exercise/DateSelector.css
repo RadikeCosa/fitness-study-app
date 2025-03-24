@@ -1,0 +1,23 @@
+/* src/components/exercise/DateSelector.css */
+.date-selector {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) / 4);
+  width: 80%;
+}
+
+.date-selector label {
+  font-size: var(--font-size-title);
+  color: var(--secondary-color);
+}
+
+.date-selector select {
+  width: 100%;
+  padding: calc(var(--spacing) / 2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background);
+  color: var(--primary-color);
+  font-size: var(--font-size-text);
+  box-shadow: var(--shadow);
+}

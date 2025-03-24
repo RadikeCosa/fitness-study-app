@@ -27,9 +27,3 @@
   justify-content: center;
   align-items: center;
 }
-.title-time-date:hover,
-.quotes-container:hover,
-.next-row:hover {
-  background: #f5f5f5;
-  transition: background 0.2s ease;
-}

@@ -24,7 +24,6 @@ function DateSelector({ value, onChange }) {
 
   return (
     <div className="date-selector">
-      <label htmlFor="manual-date">Fecha:</label>
       <select id="manual-date" value={value} onChange={onChange}>
         {getDateOptions()}
       </select>
