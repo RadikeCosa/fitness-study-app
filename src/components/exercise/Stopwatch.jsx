@@ -42,7 +42,7 @@ function Stopwatch({ saveLog }) {
 
   return (
     <section className="stopwatch" aria-label="Cronómetro de entrenamiento">
-      <output className="time-display" aria-live="polite">
+      <output className="timer-display" aria-live="polite">
         {formatTime(time)}
       </output>
       <div className="stopwatch-controls">

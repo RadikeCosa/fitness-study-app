@@ -9,14 +9,15 @@
   box-sizing: border-box;
   grid-template-areas:
     "title-time-date quotes-container quotes-container"
-    "manual-log-container stats-chart-container ."
-    ". . ."; /* Tercera fila vacía */
+    "manual-log-container stats-chart-container stopwatch-container"
+    "stats-cards stats-cards stats-cards";
 }
 
 .title-time-date,
 .quotes-container,
 .manual-log-container,
-.stats-chart-container {
+.stats-chart-container,
+.stopwatch-container {
   padding: var(--spacing);
   border-bottom: 3px solid var(--secondary-color); /* Detalle distintivo */
   border-radius: var(--border-radius);
@@ -46,6 +47,13 @@
 .stats-chart-container {
   grid-area: stats-chart-container;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stopwatch-container {
+  grid-area: stopwatch-container;
+  display: flex;
+  flex-direction: column; /* Asegurar que el contenido se apile verticalmente */
   justify-content: center;
   align-items: center;
 }

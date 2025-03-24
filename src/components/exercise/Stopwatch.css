@@ -1,0 +1,58 @@
+/* src/components/exercise/Stopwatch.css */
+.stopwatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%; /* Ocupa todo el espacio del contenedor */
+  padding: var(--spacing);
+  box-sizing: border-box;
+}
+
+.timer-display {
+  font-size: 4rem; /* Tamaño grande para destacar */
+  font-weight: 500;
+  color: var(--primary-color);
+  text-align: center;
+  flex-grow: 1; /* Crece para ocupar el espacio disponible */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.02); /* Fondo sutil para resaltar */
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing);
+}
+
+.stopwatch-controls {
+  display: flex;
+  gap: var(--spacing);
+  width: 100%;
+  justify-content: center;
+}
+
+.stopwatch-controls button {
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-text);
+  color: var(--primary-color);
+  background: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.stopwatch-controls button:hover:not(:disabled) {
+  background: var(--secondary-color);
+  color: var(--background);
+}
+
+.stopwatch-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stopwatch-controls.record {
+  margin-top: var(--spacing);
+}
