@@ -1,5 +1,6 @@
 // src/components/stats/StatsCards.jsx
 import React from "react";
+import { useExerciseStats } from "../../hooks/useExerciseStats";
 import "./StatsCards.css";
 
 function StatCard({ value, label }) {
@@ -12,33 +13,8 @@ function StatCard({ value, label }) {
 }
 
 function StatsCards({ logs = {} }) {
-  const getLast7Days = () => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const key = date.toISOString().split("T")[0];
-      days.push({ date: key, minutes: logs[key] || 0 });
-    }
-    return days.reverse();
-  };
-
-  const data = getLast7Days();
-  const totalMinutes = data.reduce((sum, { minutes }) => sum + minutes, 0);
-  const averageMinutes = totalMinutes / 7 || 0;
-  const activeDays = data.filter((d) => d.minutes > 0);
-  const maxDay = activeDays.length
-    ? activeDays.reduce((max, curr) =>
-        curr.minutes > max.minutes ? curr : max
-      )
-    : { date: "", minutes: 0 };
-  const minDay = activeDays.length
-    ? activeDays.reduce((min, curr) =>
-        curr.minutes < min.minutes ? curr : min
-      )
-    : { date: "", minutes: 0 };
-  const trend =
-    totalMinutes > averageMinutes * 7 ? "positiva" : "negativa o estable";
+  const { totalMinutes, averageMinutes, maxDay, minDay, trend } =
+    useExerciseStats(logs);
 
   const stats = [
     { value: totalMinutes, label: "Total semanal (min)" },

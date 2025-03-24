@@ -1,24 +1,12 @@
 // src/components/stats/StatsChart.jsx
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { useExerciseStats } from "../../hooks/useExerciseStats";
 import "./StatsChart.css";
 
 function StatsChart({ logs = {} }) {
-  // Valor por defecto para logs
   const chartRef = useRef(null);
-
-  const getLast7Days = () => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const key = date.toISOString().split("T")[0];
-      days.push({ date: key, minutes: logs[key] || 0 });
-    }
-    return days.reverse();
-  };
-
-  const data = getLast7Days();
+  const { data } = useExerciseStats(logs);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -109,7 +97,7 @@ function StatsChart({ logs = {} }) {
       .attr("text-anchor", "middle")
       .attr("class", "legend")
       .text("Ejercicio diario (min)");
-  }, [logs]);
+  }, [data]);
 
   return (
     <section
