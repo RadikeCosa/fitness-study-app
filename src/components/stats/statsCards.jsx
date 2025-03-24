@@ -1,6 +1,7 @@
 // src/components/stats/StatsCards.jsx
 import React from "react";
 import { useExerciseStats } from "../../hooks/useExerciseStats";
+import SectionTitle from "../../ui/SectionTitle";
 import "./StatsCards.css";
 
 function StatCard({ value, label }) {
@@ -44,6 +45,7 @@ function StatsCards({ logs = {} }) {
 
   return (
     <section className="stats-cards" aria-label="Estadísticas de entrenamiento">
+      <SectionTitle>Estadísticas</SectionTitle>
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <StatCard key={index} value={stat.value} label={stat.label} />

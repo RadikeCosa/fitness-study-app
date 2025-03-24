@@ -1,7 +1,8 @@
 // src/components/exercise/ExerciseLog.jsx
 import React from "react";
-import Stopwatch from "./Stopwatch";
 import ManualLog from "./ManualLog";
+import Stopwatch from "./Stopwatch";
+import SectionTitle from "../../ui/SectionTitle";
 import "./ExerciseLog.css";
 
 function ExerciseLog() {
@@ -13,10 +14,10 @@ function ExerciseLog() {
   };
 
   return (
-    <article className="exercise-log" aria-label="Registro de ejercicio">
-      <h2>Registro de Entrenamiento</h2>
-      <Stopwatch onSave={handleSave} />
+    <article className="exercise-log" aria-label="Registro de entrenamiento">
+      <SectionTitle>Registro de Entrenamiento</SectionTitle>
       <ManualLog onSave={handleSave} />
+      <Stopwatch onSave={handleSave} />
     </article>
   );
 }
