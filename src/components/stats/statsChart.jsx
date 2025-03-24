@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { useExerciseStats } from "../../hooks/useExerciseStats";
 import "./StatsChart.css";
+import SectionTitle from "../../ui/SectionTitle";
 
 function StatsChart({ logs = {} }) {
   const chartRef = useRef(null);
@@ -45,14 +46,12 @@ function StatsChart({ logs = {} }) {
       .attr("class", "axis")
       .attr("transform", `translate(0,${height})`)
       .call(
-        d3
-          .axisBottom(x)
-          .tickFormat((d) =>
-            new Date(d).toLocaleDateString("es-ES", {
-              weekday: "short",
-              day: "numeric",
-            })
-          )
+        d3.axisBottom(x).tickFormat((d) =>
+          new Date(d).toLocaleDateString("es-ES", {
+            weekday: "short",
+            day: "numeric",
+          })
+        )
       );
 
     svg
@@ -104,6 +103,7 @@ function StatsChart({ logs = {} }) {
       className="stats-chart"
       aria-label="Gráfico de entrenamientos diarios"
     >
+      <SectionTitle>Gráfico de Entrenamientos Diarios</SectionTitle>
       <svg ref={chartRef}></svg>
     </section>
   );

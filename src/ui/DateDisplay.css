@@ -1,5 +1,5 @@
 /* src/components/ui/DateDisplay.css */
 .date-display {
-  font-size: 1rem;
-  color: #666;
+  font-size: 2rem;
+  text-transform: capitalize;
 }

@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
+  max-width: 300px;
 }
 
 .manual-log label {
@@ -23,6 +24,9 @@
 }
 
 .manual-log button {
+  justify-content: center;
+  align-items: center;
+  width: 50%;
   padding: 0.5rem;
   font-size: 1rem;
   cursor: pointer;

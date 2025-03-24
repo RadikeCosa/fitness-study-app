@@ -1,6 +1,7 @@
 /* src/components/exercise/Stopwatch.css */
 .stopwatch {
   padding: 1rem;
+  max-width: 300px;
 }
 
 .stopwatch output {
@@ -17,8 +18,8 @@
 }
 
 .stopwatch-controls button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.9rem;
   cursor: pointer;
   background: #fff;
   border: 1px solid #ddd;
@@ -27,6 +28,6 @@
 }
 
 .stopwatch-controls button:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
 }

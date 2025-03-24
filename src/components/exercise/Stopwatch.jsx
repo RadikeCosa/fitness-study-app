@@ -48,6 +48,8 @@ function Stopwatch({ onSave }) {
         >
           Reiniciar
         </button>
+      </div>
+      <div className="stopwatch-controls record">
         <button
           onClick={handleSave}
           disabled={time === 0}

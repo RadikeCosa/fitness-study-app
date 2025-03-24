@@ -1,11 +1,10 @@
 /* src/components/exercise/ExerciseLog.css */
 .exercise-log {
   padding: 1rem;
+  display: column;
 }
 
-.exercise-log h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #000;
-  font-weight: 500;
+.logSection {
+  display: flex;
+  flex-direction: row;
 }

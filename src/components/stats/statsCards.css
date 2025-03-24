@@ -1,12 +1,14 @@
 /* src/components/stats/StatsCards.css */
 .stats-cards {
   padding: 1rem;
+  max-width: 300px;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
+  max-width: 100px;
 }
 
 .stat-item {

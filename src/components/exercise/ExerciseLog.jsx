@@ -16,8 +16,10 @@ function ExerciseLog() {
   return (
     <article className="exercise-log" aria-label="Registro de entrenamiento">
       <SectionTitle>Registro de Entrenamiento</SectionTitle>
-      <ManualLog onSave={handleSave} />
-      <Stopwatch onSave={handleSave} />
+      <div className="logSection">
+        <ManualLog onSave={handleSave} />
+        <Stopwatch onSave={handleSave} />
+      </div>
     </article>
   );
 }
