@@ -30,7 +30,7 @@ function ManualLog({ onSave }) {
         id="manual-minutes"
         type="range"
         min="0"
-        max="100"
+        max="60"
         value={manualMinutes}
         onChange={(e) => setManualMinutes(parseInt(e.target.value))}
         aria-label={`Seleccionar ${manualMinutes} minutos de ejercicio`}
