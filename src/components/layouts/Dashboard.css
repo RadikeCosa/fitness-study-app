@@ -1,19 +1,58 @@
-/* src/components/Dashboard.css */
-.dashboard {
+/* src/components/layout/Dashboard.css */
+.dashboard-grid {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "left-sidebar main right-sidebar"
+    "footer footer footer";
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  min-height: 100vh;
+  padding: 1rem;
+  background: #fff;
+}
+
+.dashboard-header {
+  grid-area: header;
+  text-align: center;
   padding: 1rem;
 }
 
-.dashboard-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Izquierda: ExerciseLog, Derecha: Stats */
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  max-height: 100%;
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #000;
+  margin: 0;
+  font-weight: 500;
+}
+
+.dashboard-sidebar-left {
+  grid-area: left-sidebar;
+}
+
+.dashboard-main {
+  grid-area: main;
+}
+
+.dashboard-sidebar-right {
+  grid-area: right-sidebar;
+}
+
+.dashboard-footer {
+  grid-area: footer;
+  text-align: center;
+  padding: 1rem;
 }
 
 @media (max-width: 768px) {
-  .dashboard-container {
-    grid-template-columns: 1fr; /* Apila en móviles */
+  .dashboard-grid {
+    grid-template-areas:
+      "header"
+      "main"
+      "left-sidebar"
+      "right-sidebar"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto;
   }
 }

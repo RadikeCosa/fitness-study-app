@@ -2,7 +2,8 @@
 import React from "react";
 import "./StatsCards.css";
 
-function StatsCards({ logs }) {
+function StatsCards({ logs = {} }) {
+  // Valor por defecto para logs
   const getLast7Days = () => {
     const days = [];
     for (let i = 0; i < 7; i++) {
