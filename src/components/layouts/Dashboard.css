@@ -27,3 +27,8 @@
   justify-content: center;
   align-items: center;
 }
+.manual-log {
+  border-radius: var(--border-radius);
+  box-shadow: var(--elevate-shadow);
+  box-sizing: border-box;
+}
