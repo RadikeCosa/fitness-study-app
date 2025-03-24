@@ -3,7 +3,7 @@
   height: 100vh; /* Todo en una pantalla */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr; /* 3 columnas iguales */
-  grid-template-rows: 1fr 1fr 1fr; /* 3 filas iguales */
+  grid-template-rows: 1fr 2fr 1fr; /* 3 filas iguales */
   gap: var(--spacing); /* Espacio entre celdas */
   padding: var(--spacing);
   box-sizing: border-box;
@@ -57,7 +57,9 @@
   justify-content: center;
   align-items: center;
 }
-
+.stats-cards {
+  grid-area: stats-cards;
+}
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr; /* Apilar en móvil */

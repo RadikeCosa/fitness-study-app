@@ -7,6 +7,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import MainTitle from "../../ui/MainTitle";
 import ManualLog from "../exercise/ManualLog";
 import StatsChart from "../stats/StatsChart"; // Path corregido
+import StatsCards from "../stats/StatsCards"; // Path corregido
 import Stopwatch from "../exercise/Stopwatch";
 import "./Dashboard.css";
 
@@ -43,6 +44,9 @@ function Dashboard() {
       </section>
       <section className="stopwatch-container">
         <Stopwatch saveLog={saveLog} />
+      </section>
+      <section className="stats-cards">
+        <StatsCards logs={logs} />
       </section>
     </div>
   );
