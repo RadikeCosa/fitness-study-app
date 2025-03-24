@@ -1,58 +1,49 @@
 /* src/components/layout/Dashboard.css */
-.dashboard-grid {
-  display: grid;
-  grid-template-areas:
-    "header header header"
-    "left-sidebar main right-sidebar"
-    "footer footer footer";
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 1rem;
+.dashboard {
   min-height: 100vh;
   padding: 1rem;
-  background: #fff;
 }
 
 .dashboard-header {
-  grid-area: header;
   text-align: center;
   padding: 1rem;
 }
 
 .dashboard-header h1 {
-  font-size: 2rem;
-  color: #000;
-  margin: 0;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-.dashboard-sidebar-left {
-  grid-area: left-sidebar;
+.dashboard-header .datetime {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.25rem;
+  color: #333;
 }
 
-.dashboard-main {
-  grid-area: main;
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.dashboard-sidebar-right {
-  grid-area: right-sidebar;
-}
-
-.dashboard-footer {
-  grid-area: footer;
-  text-align: center;
+.dashboard-exercise,
+.dashboard-chart,
+.dashboard-cards,
+.dashboard-quotes {
   padding: 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-areas:
-      "header"
-      "main"
-      "left-sidebar"
-      "right-sidebar"
-      "footer";
+  .dashboard-content {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto;
   }
 }
