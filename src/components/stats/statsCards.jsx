@@ -2,8 +2,16 @@
 import React from "react";
 import "./StatsCards.css";
 
+function StatCard({ value, label }) {
+  return (
+    <div className="stat-item">
+      <span className="stat-value">{value}</span>
+      <span className="stat-label">{label}</span>
+    </div>
+  );
+}
+
 function StatsCards({ logs = {} }) {
-  // Valor por defecto para logs
   const getLast7Days = () => {
     const days = [];
     for (let i = 0; i < 7; i++) {
@@ -18,54 +26,52 @@ function StatsCards({ logs = {} }) {
   const data = getLast7Days();
   const totalMinutes = data.reduce((sum, { minutes }) => sum + minutes, 0);
   const averageMinutes = totalMinutes / 7 || 0;
-  const maxDay = data.reduce(
-    (max, curr) => (curr.minutes > max.minutes ? curr : max),
-    data[0]
-  );
-  const minDay = data.reduce(
-    (min, curr) => (curr.minutes < min.minutes ? curr : min),
-    data[0]
-  );
+  const activeDays = data.filter((d) => d.minutes > 0);
+  const maxDay = activeDays.length
+    ? activeDays.reduce((max, curr) =>
+        curr.minutes > max.minutes ? curr : max
+      )
+    : { date: "", minutes: 0 };
+  const minDay = activeDays.length
+    ? activeDays.reduce((min, curr) =>
+        curr.minutes < min.minutes ? curr : min
+      )
+    : { date: "", minutes: 0 };
   const trend =
     totalMinutes > averageMinutes * 7 ? "positiva" : "negativa o estable";
+
+  const stats = [
+    { value: totalMinutes, label: "Total semanal (min)" },
+    { value: averageMinutes.toFixed(1), label: "Promedio diario (min)" },
+    {
+      value:
+        maxDay.minutes > 0
+          ? `${new Date(maxDay.date).toLocaleDateString("es-ES", {
+              day: "numeric",
+              month: "short",
+            })} (${maxDay.minutes})`
+          : "Ninguno",
+      label: "Día más activo",
+    },
+    {
+      value:
+        minDay.minutes > 0
+          ? `${new Date(minDay.date).toLocaleDateString("es-ES", {
+              day: "numeric",
+              month: "short",
+            })} (${minDay.minutes})`
+          : "Ninguno",
+      label: "Día menos activo",
+    },
+    { value: trend, label: "Tendencia" },
+  ];
 
   return (
     <section className="stats-cards" aria-label="Estadísticas de entrenamiento">
       <div className="stats-grid">
-        <div className="stat-item">
-          <span className="stat-value">{totalMinutes}</span>
-          <span className="stat-label">Total semanal (min)</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-value">{averageMinutes.toFixed(1)}</span>
-          <span className="stat-label">Promedio diario (min)</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-value">
-            {maxDay.minutes > 0
-              ? `${new Date(maxDay.date).toLocaleDateString("es-ES", {
-                  day: "numeric",
-                  month: "short",
-                })} (${maxDay.minutes})`
-              : "Ninguno"}
-          </span>
-          <span className="stat-label">Día más activo</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-value">
-            {minDay.minutes > 0
-              ? `${new Date(minDay.date).toLocaleDateString("es-ES", {
-                  day: "numeric",
-                  month: "short",
-                })} (${minDay.minutes})`
-              : "Ninguno"}
-          </span>
-          <span className="stat-label">Día menos activo</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-value">{trend}</span>
-          <span className="stat-label">Tendencia</span>
-        </div>
+        {stats.map((stat, index) => (
+          <StatCard key={index} value={stat.value} label={stat.label} />
+        ))}
       </div>
     </section>
   );
