@@ -1,12 +1,11 @@
 // src/components/stats/StatsCards.jsx
 import React from "react";
 import { useExerciseStats } from "../../hooks/useExerciseStats";
-import SectionTitle from "../../ui/SectionTitle";
 import "./StatsCards.css";
 
-function StatCard({ value, label, highlight = false }) {
+function StatCard({ value, label }) {
   return (
-    <div className={`stat-item ${highlight ? "highlight" : ""}`}>
+    <div className="stat-item">
       <span className="stat-value">{value}</span>
       <span className="stat-label">{label}</span>
     </div>
@@ -17,15 +16,15 @@ function StatsCards({ logs = {} }) {
   const { data, totalMinutes, averageMinutes, maxDay, minDay, trend } =
     useExerciseStats(logs);
 
-  // Función para formatear fechas consistentemente
+  // Formatear fechas
   const formatDate = (dateStr) => {
     if (!dateStr) return "Ninguno";
     const date = new Date(dateStr);
-    date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); // Ajuste de zona horaria
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
     return date.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
   };
 
-  // Calcular días activos y racha actual
+  // Días activos y racha
   const activeDaysCount = data.filter((d) => d.minutes > 0).length;
   const currentStreak = (() => {
     let streak = 0;
@@ -36,9 +35,9 @@ function StatsCards({ logs = {} }) {
     return streak;
   })();
 
-  // Generar estadísticas dinámicamente
-  const getStats = () => [
-    { value: totalMinutes, label: "Total semanal (min)", highlight: true },
+  // Estadísticas simplificadas
+  const stats = [
+    { value: totalMinutes, label: "Total semanal (min)" },
     { value: averageMinutes.toFixed(1), label: "Promedio diario (min)" },
     {
       value:
@@ -46,7 +45,6 @@ function StatsCards({ logs = {} }) {
           ? `${formatDate(maxDay.date)} (${maxDay.minutes})`
           : "Ninguno",
       label: "Día más activo",
-      highlight: true,
     },
     {
       value:
@@ -60,8 +58,6 @@ function StatsCards({ logs = {} }) {
     { value: currentStreak, label: "Racha actual (días)" },
   ];
 
-  const stats = getStats();
-
   return (
     <section className="stats-cards" aria-label="Estadísticas de entrenamiento">
       {stats.length === 0 ? (
@@ -69,12 +65,7 @@ function StatsCards({ logs = {} }) {
       ) : (
         <div className="stats-grid">
           {stats.map((stat) => (
-            <StatCard
-              key={stat.label} // Clave única basada en el label
-              value={stat.value}
-              label={stat.label}
-              highlight={stat.highlight}
-            />
+            <StatCard key={stat.label} value={stat.value} label={stat.label} />
           ))}
         </div>
       )}
