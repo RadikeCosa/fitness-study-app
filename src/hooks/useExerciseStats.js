@@ -6,7 +6,7 @@ export function useExerciseStats(logs = {}) {
     const days = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date();
-      date.setUTCHours(0, 0, 0, 0); // Normalizar a medianoche UTC
+      date.setUTCHours(0, 0, 0, 0);
       date.setDate(date.getDate() - i);
       const key = date.toISOString().split("T")[0];
       days.push({ date: key, minutes: logs[key] || 0 });
@@ -28,8 +28,18 @@ export function useExerciseStats(logs = {}) {
         curr.minutes < min.minutes ? curr : min
       )
     : { date: "", minutes: 0 };
-  const trend =
-    totalMinutes > averageMinutes * 7 ? "positiva" : "negativa o estable";
+
+  // Cálculo corregido de trend
+  const trend = (() => {
+    if (data.length < 7) return "sin datos suficientes";
+    const earlyDays = data.slice(0, 3); // Primeros 3 días
+    const lateDays = data.slice(-3); // Últimos 3 días
+    const earlySum = earlyDays.reduce((sum, d) => sum + d.minutes, 0);
+    const lateSum = lateDays.reduce((sum, d) => sum + d.minutes, 0);
+    if (lateSum > earlySum) return "positiva";
+    if (lateSum < earlySum) return "negativa";
+    return "estable";
+  })();
 
   return { data, totalMinutes, averageMinutes, maxDay, minDay, trend };
 }

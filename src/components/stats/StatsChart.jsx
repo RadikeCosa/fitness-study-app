@@ -11,13 +11,13 @@ function StatsChart({ logs = {}, resetLogs }) {
   useEffect(() => {
     if (!chartRef.current) return;
 
-    // Dimensiones dinámicas
+    // Dimensiones
     const container = chartRef.current.parentElement;
-    const margin = { top: 20, right: 20, bottom: 50, left: 40 }; // Más espacio en bottom para evitar superposición
+    const margin = { top: 20, right: 20, bottom: 40, left: 40 };
     const width = container.clientWidth - margin.left - margin.right;
-    const height = container.clientHeight * 0.8 - margin.top - margin.bottom; // 80% del espacio para el gráfico
+    const height = container.clientHeight * 0.8 - margin.top - margin.bottom;
 
-    // Limpiar SVG
+    // Limpiar y configurar SVG
     const svg = d3
       .select(chartRef.current)
       .attr("width", width + margin.left + margin.right)
@@ -28,10 +28,9 @@ function StatsChart({ logs = {}, resetLogs }) {
 
     // Escalas
     const x = d3
-      .scaleBand()
+      .scalePoint()
       .domain(data.map((d) => d.date))
-      .range([0, width])
-      .padding(0.2); // Más padding para aire entre barras
+      .range([0, width]); // Primer punto en 0, último en width
 
     const y = d3
       .scaleLinear()
@@ -57,70 +56,27 @@ function StatsChart({ logs = {}, resetLogs }) {
         })
       );
 
-    svg
-      .append("g")
-      .attr("class", "y-axis")
-      .call(
-        d3
-          .axisLeft(y)
-          .ticks(5)
-          .tickFormat((d) => `${d}`)
-      );
+    svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y).ticks(5));
 
     // Línea
     const line = d3
       .line()
-      .x((d) => x(d.date) + x.bandwidth() / 2)
+      .x((d) => x(d.date))
       .y((d) => y(d.minutes))
       .curve(d3.curveMonotoneX);
 
     svg.append("path").datum(data).attr("class", "line").attr("d", line);
 
     // Puntos
-    const dots = svg
+    svg
       .selectAll(".dot")
       .data(data)
       .enter()
       .append("circle")
       .attr("class", "dot")
-      .attr("cx", (d) => x(d.date) + x.bandwidth() / 2)
+      .attr("cx", (d) => x(d.date))
       .attr("cy", (d) => y(d.minutes))
       .attr("r", 4);
-
-    // Tooltip
-    const tooltip = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
-
-    dots
-      .on("mouseover", (event, d) => {
-        tooltip
-          .style("opacity", 1)
-          .html(
-            `${d.minutes} min<br>${new Date(d.date).toLocaleDateString(
-              "es-ES"
-            )}`
-          )
-          .style("left", `${event.pageX + 10}px`)
-          .style("top", `${event.pageY - 20}px`);
-      })
-      .on("mouseout", () => {
-        tooltip.style("opacity", 0);
-      });
-
-    // Leyenda fuera del eje X
-    svg
-      .append("text")
-      .attr("class", "legend")
-      .attr("x", width / 2)
-      .attr("y", -10) // Movida arriba del gráfico
-      .text("Ejercicio diario (min)");
-
-    return () => {
-      tooltip.remove();
-    };
   }, [data]);
 
   return (
@@ -129,11 +85,7 @@ function StatsChart({ logs = {}, resetLogs }) {
       aria-label="Gráfico de entrenamientos diarios"
     >
       <svg ref={chartRef}></svg>
-      <button
-        type="button"
-        onClick={resetLogs}
-        aria-label="Reiniciar datos de entrenamientos"
-      >
+      <button type="button" onClick={resetLogs}>
         Reiniciar Datos
       </button>
     </section>

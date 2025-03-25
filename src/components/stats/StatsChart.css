@@ -72,18 +72,6 @@
   color: var(--background);
 }
 
-.tooltip {
-  position: absolute;
-  background: var(--background);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--text-color);
-  pointer-events: none;
-  box-shadow: var(--elevate-shadow);
-}
-
 /* Responsividad */
 @media (max-width: 768px) {
   .stats-chart svg {
